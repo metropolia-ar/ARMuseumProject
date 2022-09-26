@@ -8,5 +8,6 @@ data class Artwork(
     @PrimaryKey(autoGenerate = false)
     val objectID: Int,
     val primaryImage: String,
-    val title: String
+    val title: String,
+    val department: String
 )

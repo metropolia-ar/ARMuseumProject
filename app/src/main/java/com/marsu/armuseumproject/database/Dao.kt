@@ -14,4 +14,7 @@ interface ArtworkDAO {
 
     @Query("SELECT * FROM art_table WHERE objectID = :objectID")
     fun getSpecificArt(objectID: Int): LiveData<List<Artwork>>
+
+    @Query("SELECT * FROM art_table WHERE department =:department")
+    fun getArtByDepartment(department: String): LiveData<List<Artwork>>
 }
