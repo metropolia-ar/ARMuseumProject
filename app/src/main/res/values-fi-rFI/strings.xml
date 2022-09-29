@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AR Museum Project</string>
+    <string name="ar_selection">AR Valinta</string>
+    <string name="back">Takaisin</string>
+    <string name="select_photo">Valitse kuva...</string>
+    <string name="start_ar">Aloita AR</string>
+    <string name="add_artwork">Lisää taideteos</string>
+</resources>
