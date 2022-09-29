@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/selectFromGallery">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -35,4 +35,8 @@
             android:name="imageUri"
             app:argType="string" />
     </activity>
+    <fragment
+        android:id="@+id/selectFromGallery"
+        android:name="com.marsu.armuseumproject.SelectFromGallery"
+        android:label="SelectFromGallery" />
 </navigation>
