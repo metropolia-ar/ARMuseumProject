@@ -35,6 +35,7 @@ class APIServiceFragment : Fragment() {
 
         // Recyclerview setup
         adapter = ApiServiceAdapter()
+        adapter.setHasStableIds(true)
         layoutManager = LinearLayoutManager(activity)
 
         binding.recyclerView.adapter = adapter
@@ -49,7 +50,6 @@ class APIServiceFragment : Fragment() {
         apiServiceViewModel.getArts(false)
         apiServiceViewModel.artsList.observe(viewLifecycleOwner) { arts ->
             arts.let {
-                Log.d("observing", it.toString())
                 adapter.setData(it)
             }
         }
@@ -70,10 +70,17 @@ class APIServiceFragment : Fragment() {
         })
 
 
-        apiServiceViewModel.loadingResults.observe(viewLifecycleOwner) {status ->
+        // ProgressBar & recyclerview invisibility while loading
+        apiServiceViewModel.initialBatchLoaded.observe(viewLifecycleOwner) {status ->
             status.let {
-                if (it) binding.progressBar.visibility = View.VISIBLE
-                else binding.progressBar.visibility = View.INVISIBLE
+                if (!it) {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.recyclerView.visibility = View.INVISIBLE
+                }
+                else {
+                    binding.progressBar.visibility = View.INVISIBLE
+                    binding.recyclerView.visibility = View.VISIBLE
+                }
             }
         }
 

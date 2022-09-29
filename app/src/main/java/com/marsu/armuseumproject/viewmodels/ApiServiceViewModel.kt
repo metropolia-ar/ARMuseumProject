@@ -30,6 +30,10 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
         get() = _loadingResults
 
     val paginationAmount = 10
+    private val _initialBatchLoaded = MutableLiveData(true)
+    val initialBatchLoaded : LiveData<Boolean>
+        get() = _initialBatchLoaded
+
     /**
      * Get Art ids and store them for later usage.
      */
@@ -53,7 +57,6 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
         CoroutineScope(Dispatchers.Main).launch {
 
             if (_foundIDs.value == null || refresh) {
-                Log.d("Fetching IDs @getArts", "refresh: $refresh")
                 _foundIDs.value = getArtIDs()
             }
 
@@ -62,6 +65,7 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
 
             if (_artsList.value == null || _artsList.value?.isEmpty() == true) {
 
+                _initialBatchLoaded.value = false
                 while (x < initialBatchSize.coerceAtMost(_foundIDs.value?.size ?: 0)) {
                     if (addArtIfImagesAreFound()) x++
                 }
@@ -77,11 +81,15 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
             Log.d("artsList size", artsList.value?.size.toString())
 
             _loadingResults.value = false
+            _initialBatchLoaded.value = true
         }
     }
 
-    // TODO: Search functionality
     fun searchArtsWithInput() {
+        if (searchInput.value?.isEmpty() == true) {
+            // TODO: Optional validators for the search input, i.e. has to be more than 3 characters etc.
+            return
+        }
         _artsList.value = mutableListOf()
         getArts(false)
     }
