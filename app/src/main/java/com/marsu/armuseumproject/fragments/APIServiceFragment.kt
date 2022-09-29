@@ -60,7 +60,9 @@ class APIServiceFragment : Fragment() {
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (layoutManager.findLastCompletelyVisibleItemPosition() == (apiServiceViewModel.artsList.value?.size?.minus(1))) {
+                if (layoutManager.findLastVisibleItemPosition() >=
+                    (apiServiceViewModel.artsList.value?.size?.minus(apiServiceViewModel.paginationAmount) ?: 0)) {
+
                     if ((apiServiceViewModel.loadingResults.value == false)) {
                         apiServiceViewModel.getArts(false)
                     }

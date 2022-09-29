@@ -27,6 +27,7 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
     val loadingResults: LiveData<Boolean>
         get() = _loadingResults
 
+    val paginationAmount = 10
     /**
      * Get Art ids and store them for later usage.
      */
@@ -55,7 +56,6 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
             }
 
             _loadingResults.value = true
-
             var x = 0
 
             if (_artsList.value == null || _artsList.value?.isEmpty() == true) {
@@ -65,9 +65,13 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
                 }
 
             } else {
-                addArtIfImagesAreFound()
+
+                while (x < paginationAmount) {
+                    if ((_artsList.value?.size ?: 0) >= (_foundIDs.value?.size ?: 0)) break
+                    if (addArtIfImagesAreFound()) x++
+                }
+
             }
-            Log.d("getArts artsList", artsList.value.toString())
             Log.d("artsList size", artsList.value?.size.toString())
 
             _loadingResults.value = false
@@ -79,7 +83,12 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
      */
     private suspend fun addArtIfImagesAreFound(): Boolean {
 
-        val objectID = _foundIDs.value?.get(_artsList.value?.size ?: 0) ?: 0
+        if ((_artsList.value?.size ?: 0) >= (_foundIDs.value?.size ?: 0)) return false
+
+        val objectID = _foundIDs.value?.get(
+            (_artsList.value?.size ?: 0).coerceAtMost(_foundIDs.value?.size?.minus(1) ?: 0)
+        ) ?: 0
+
         try {
 
             val art = service.getObjectByID(objectID)
