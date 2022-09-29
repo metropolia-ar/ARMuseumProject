@@ -16,7 +16,8 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
 
     private val initialBatchSize = 15
     private val service = APIService.service
-    private val searchInput = MutableLiveData("sunflower")
+    private val searchInput = MutableLiveData("sun")
+    private val classification = "Paintings"
 
     private val _artsList = MutableLiveData(mutableListOf<Artwork>())
     val artsList : LiveData<MutableList<Artwork>>
@@ -35,7 +36,7 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
     private suspend fun getArtIDs(): MutableList<Int> {
 
         return if (searchInput.value?.isNotEmpty() == true) {
-            val response = service.getArtIDs(searchInput.value.toString())
+            val response = service.getArtIDs("${searchInput.value.toString()} $classification")
             Log.d("getArtIDs", "Found ${response.objectIDs.size} ids")
             response.objectIDs
         } else {

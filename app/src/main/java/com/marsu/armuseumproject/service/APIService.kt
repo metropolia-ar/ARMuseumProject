@@ -50,7 +50,8 @@ object APIService {
          */
         @GET("search?")
         suspend fun getArtIDs(
-            @Query("q") q: String
+            @Query("q") q: String,
+            @Query("hasImages") hasImages : Boolean = true
         ): SearchResult
 
 
