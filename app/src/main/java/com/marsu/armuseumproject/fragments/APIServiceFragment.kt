@@ -42,10 +42,9 @@ class APIServiceFragment : Fragment() {
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = layoutManager
 
-        // TODO: Add search functionality
-       /* binding.button2.setOnClickListener {
-            apiServiceViewModel.getArts(false)
-        }*/
+        binding.button2.setOnClickListener {
+            apiServiceViewModel.searchArtsWithInput()
+        }
 
         apiServiceViewModel.getArts(false)
         apiServiceViewModel.artsList.observe(viewLifecycleOwner) { arts ->

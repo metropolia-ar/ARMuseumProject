@@ -82,7 +82,8 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
 
     // TODO: Search functionality
     fun searchArtsWithInput() {
-
+        _artsList.value = mutableListOf()
+        getArts(false)
     }
 
     /**
