@@ -5,7 +5,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".HomeFragment">
+        tools:context=".fragments.HomeFragment">
 
         <Button
             android:id="@+id/ar_selection_navigation"
