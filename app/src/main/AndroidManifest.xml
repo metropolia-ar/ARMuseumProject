@@ -2,7 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.marsu.armuseumproject">
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:glEsVersion="0x00030000"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.ar"
+        android:required="true" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ARMuseumProject"
         tools:targetApi="31">
+        <meta-data android:name="com.google.ar.core"
+            android:value="required" />
+        <activity
+            android:name=".ArActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
