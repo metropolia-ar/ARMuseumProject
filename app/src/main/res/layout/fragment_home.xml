@@ -14,5 +14,13 @@
             android:layout_gravity="bottom|center_horizontal"
             android:layout_margin="20dp"
             android:text="@string/ar_selection" />
+
+        <Button
+            android:id="@+id/open_api_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_margin="20dp"
+            android:text="@string/open_api_service" />
     </FrameLayout>
 </layout>

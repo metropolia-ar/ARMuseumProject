@@ -27,9 +27,6 @@ class APIServiceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-
-
-
         // Initialize VM and databinding
         apiServiceViewModel = ApiServiceViewModel()
         binding = FragmentApiServiceBinding.inflate(inflater)
@@ -45,9 +42,11 @@ class APIServiceFragment : Fragment() {
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = layoutManager
 
-        binding.button2.setOnClickListener {
+        // TODO: Add search functionality
+       /* binding.button2.setOnClickListener {
             apiServiceViewModel.getArts(false)
-        }
+        }*/
+
         apiServiceViewModel.getArts(false)
         apiServiceViewModel.artsList.observe(viewLifecycleOwner) { arts ->
             arts.let {

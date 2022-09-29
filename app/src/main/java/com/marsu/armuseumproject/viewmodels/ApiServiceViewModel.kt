@@ -77,7 +77,8 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
             _loadingResults.value = false
         }
     }
-    
+
+    // TODO: Search functionality
     fun searchArtsWithInput() {
 
     }

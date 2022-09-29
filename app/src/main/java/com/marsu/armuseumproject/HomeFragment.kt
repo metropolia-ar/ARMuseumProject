@@ -23,6 +23,8 @@ class HomeFragment : Fragment() {
         val view = binding.root
 
         binding.arSelectionNavigation.setOnClickListener { view.findNavController().navigate(R.id.action_homeFragment_to_ar_Selection) }
+        binding.openApiService.setOnClickListener { view.findNavController().navigate(R.id.action_homeFragment_to_APIServiceFragment) }
+
         return view
     }
 
