@@ -6,4 +6,5 @@
     <string name="select_photo">Valitse kuva...</string>
     <string name="start_ar">Aloita AR</string>
     <string name="add_artwork">Lisää taideteos</string>
+    <string name="open_api_service">Avaa APIService</string>
 </resources>

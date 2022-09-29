@@ -1,12 +1,12 @@
-package com.marsu.armuseumproject
+package com.marsu.armuseumproject.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -23,6 +23,8 @@ class HomeFragment : Fragment() {
         val view = binding.root
 
         binding.arSelectionNavigation.setOnClickListener { view.findNavController().navigate(R.id.action_homeFragment_to_ar_Selection) }
+        binding.openApiService.setOnClickListener { view.findNavController().navigate(R.id.action_homeFragment_to_APIServiceFragment) }
+
         return view
     }
 

@@ -5,6 +5,7 @@
     <string name="select_photo">Select photo...</string>
     <string name="start_ar">Start AR</string>
     <string name="add_artwork">Add artwork</string>
+    <string name="open_api_service">Open APIService</string>
     <!-- TODO: Remove or change this placeholder text -->
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
