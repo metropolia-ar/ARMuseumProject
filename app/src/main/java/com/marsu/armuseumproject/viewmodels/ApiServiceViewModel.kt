@@ -17,10 +17,9 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
     private val initialBatchSize = 15
     private val service = APIService.service
     private val searchInput = MutableLiveData("sun")
-    private val classification = "Paintings"
 
-    private val _artsList = MutableLiveData(mutableListOf<Artwork>())
-    val artsList : LiveData<MutableList<Artwork>>
+    private val _artsList = MutableLiveData(listOf<Artwork>())
+    val artsList : LiveData<List<Artwork>>
         get() = _artsList
 
     private val _foundIDs = MutableLiveData<MutableList<Int>>()
@@ -40,7 +39,7 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
     private suspend fun getArtIDs(): MutableList<Int> {
 
         return if (searchInput.value?.isNotEmpty() == true) {
-            val response = service.getArtIDs("${searchInput.value.toString()} $classification")
+            val response = service.getArtIDs(searchInput.value.toString())
             Log.d("getArtIDs", "Found ${response.objectIDs.size} ids")
             response.objectIDs
         } else {
@@ -110,16 +109,12 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
             val art = service.getObjectByID(objectID)
 
             if (art.primaryImage.isNotEmpty() && art.primaryImageSmall.isNotEmpty()) {
-
-                val newList = mutableListOf<Artwork>()
-                newList.addAll(_artsList.value ?: mutableListOf())
-                newList.addAll(mutableListOf(art))
-                _artsList.value = newList
+                _artsList.value = _artsList.value.orEmpty() + art
                 return true
+            } else {
+                _foundIDs.value?.remove(objectID)
+                Log.d("Empty art removed", "id: $objectID")
             }
-            _foundIDs.value?.remove(objectID)
-            Log.d("Empty art removed", "id: $objectID")
-
         }
         catch (e: HttpException) {
             Log.d("HttpException @ addArtIfImagesAreFound, removing id $objectID", e.message.toString())
@@ -130,7 +125,6 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
         }
         return false
     }
-
 
     /**
      * Returns all the found departments.

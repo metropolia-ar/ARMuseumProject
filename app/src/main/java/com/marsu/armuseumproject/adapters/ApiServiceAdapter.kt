@@ -20,6 +20,8 @@ class ApiServiceAdapter: RecyclerView.Adapter<ApiServiceAdapter.ApiServiceViewHo
     }
 
     override fun onBindViewHolder(holder: ApiServiceViewHolder, position: Int) {
+
+
         val art = artList[position]
         holder.binding.art = art
 
@@ -42,6 +44,8 @@ class ApiServiceAdapter: RecyclerView.Adapter<ApiServiceAdapter.ApiServiceViewHo
     }
 
     override fun getItemCount() = artList.size
+
+    override fun getItemViewType(position: Int) = position
 
     /** Updates the data in the memberList variable. */
     fun setData(arts: List<Artwork>) {

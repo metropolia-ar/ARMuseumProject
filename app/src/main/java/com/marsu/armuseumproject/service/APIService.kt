@@ -46,12 +46,14 @@ object APIService {
 
 
         /**
-         * Returns art IDs according to the query parameter.
+         * Returns paintings according to the given query parameter.
          */
         @GET("search?")
         suspend fun getArtIDs(
             @Query("q") q: String,
-            @Query("hasImages") hasImages : Boolean = true
+            @Query("isOnView") isOnView : Boolean = true,
+            @Query("medium") medium : String = "Paintings",
+            @Query("hasImages") hasImages : Boolean = true,
         ): SearchResult
 
 
