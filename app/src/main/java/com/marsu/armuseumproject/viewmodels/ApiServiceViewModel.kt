@@ -77,6 +77,10 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
             _loadingResults.value = false
         }
     }
+    
+    fun searchArtsWithInput() {
+
+    }
 
     /**
      * Adds the found art to the list if it contains the required primary images. If it lacks images, the ID is removed from the list.
