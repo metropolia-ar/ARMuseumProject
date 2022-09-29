@@ -5,6 +5,7 @@ import android.widget.SearchView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.service.APIService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,8 +18,8 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
     private val service = APIService.service
     private val searchInput = MutableLiveData("sunflower")
 
-    private val _artsList = MutableLiveData(mutableListOf<APIService.Art>())
-    val artsList : LiveData<MutableList<APIService.Art>>
+    private val _artsList = MutableLiveData(mutableListOf<Artwork>())
+    val artsList : LiveData<MutableList<Artwork>>
         get() = _artsList
 
     private val _foundIDs = MutableLiveData<MutableList<Int>>()
@@ -100,7 +101,7 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
 
             if (art.primaryImage.isNotEmpty() && art.primaryImageSmall.isNotEmpty()) {
 
-                val newList = mutableListOf<APIService.Art>()
+                val newList = mutableListOf<Artwork>()
                 newList.addAll(_artsList.value ?: mutableListOf())
                 newList.addAll(mutableListOf(art))
                 _artsList.value = newList

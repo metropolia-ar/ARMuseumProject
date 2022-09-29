@@ -1,20 +1,17 @@
 package com.marsu.armuseumproject.adapters
 
-import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.marsu.armuseumproject.R
+import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.databinding.ArtListItemBinding
-import com.marsu.armuseumproject.service.APIService
 import com.squareup.picasso.Picasso
-import java.net.URL
 
 class ApiServiceAdapter: RecyclerView.Adapter<ApiServiceAdapter.ApiServiceViewHolder>() {
 
-    private var artList: List<APIService.Art> = emptyList()
+    private var artList: List<Artwork> = emptyList()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ApiServiceViewHolder {
@@ -43,7 +40,7 @@ class ApiServiceAdapter: RecyclerView.Adapter<ApiServiceAdapter.ApiServiceViewHo
     override fun getItemCount() = artList.size
 
     /** Updates the data in the memberList variable. */
-    fun setData(arts: List<APIService.Art>) {
+    fun setData(arts: List<Artwork>) {
         this.artList = arts
         notifyDataSetChanged()
         Log.d("data set at ApiServiceAdapter", artList.toString())
