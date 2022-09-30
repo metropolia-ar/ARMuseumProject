@@ -34,7 +34,7 @@ class APIServiceFragment : Fragment() {
         binding = FragmentApiServiceBinding.inflate(inflater)
         binding.apiServiceViewModel = apiServiceViewModel
 
-//        binding.apiSearchInput.setOnQueryTextListener(apiServiceViewModel)
+        binding.apiSearchInput.setOnQueryTextListener(apiServiceViewModel)
 
         // Recyclerview setup
         adapter = ApiServiceAdapter()
@@ -44,15 +44,17 @@ class APIServiceFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = layoutManager
+
         apiServiceViewModel.getArts(false)
 
+
         // Search button
-  /*      binding.button2.setOnClickListener {
+        binding.searchButton.setOnClickListener {
             apiServiceViewModel.searchArtsWithInput()
             val kb = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             kb.hideSoftInputFromWindow(view?.windowToken, 0)
         }
-*/
+
         // Recyclerview updates when fetching data from API
         apiServiceViewModel.artsList.observe(viewLifecycleOwner) { arts ->
             arts.let {

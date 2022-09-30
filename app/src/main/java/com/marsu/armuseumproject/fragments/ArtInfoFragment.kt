@@ -19,8 +19,8 @@ import com.squareup.picasso.Picasso
 class ArtInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentArtInfoBinding
-//    private lateinit var art: Artwork
     private val args: ArtInfoFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,10 +32,9 @@ class ArtInfoFragment : Fragment() {
         // TODO: Navigate to this fragment without resetting the recyclerview in ApiServiceFragment.
         //  Maybe instantiate list onStart or onCreate etc?
 
-
         try {
             Picasso.get()
-                .load(binding.art?.primaryImage)
+                .load(binding.art?.primaryImageSmall)
                 .fit()
                 .centerCrop()
                 .error(R.drawable.ic_not_found_vector)

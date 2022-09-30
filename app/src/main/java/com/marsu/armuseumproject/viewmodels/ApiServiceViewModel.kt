@@ -14,7 +14,6 @@ import retrofit2.HttpException
 
 class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
 
-    private val classification = "Paintings"
     private val initialBatchSize = 15
     private val service = APIService.service
     private val searchInput = MutableLiveData("sun")
@@ -39,7 +38,7 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
     private suspend fun getArtIDs(): MutableList<Int> {
 
         return if (searchInput.value?.isNotEmpty() == true) {
-            val response = service.getArtIDs(searchInput.value.toString())
+            val response = service.getArtIDs(q = searchInput.value.toString())
             Log.d("getArtIDs", "Found ${response.objectIDs.size} ids")
             response.objectIDs
         } else {
