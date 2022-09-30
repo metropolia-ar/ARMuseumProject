@@ -18,11 +18,9 @@ import com.marsu.armuseumproject.SelectFromGalleryViewModel
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.databinding.FragmentSelectFromGalleryBinding
 
-
+const val REQUEST_CODE = 200
 
 class SelectFromGallery : Fragment() {
-
-    private val REQUEST_CODE = 100
     private var imageUri: Uri? = null
     private var _binding: FragmentSelectFromGalleryBinding? = null
     private val binding get() = _binding!!
