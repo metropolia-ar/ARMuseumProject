@@ -69,7 +69,7 @@ class SelectFromGallery : Fragment() {
         val objectID: Int = uri.hashCode() * -1
         Log.d("HASHCODE TEST", objectID.toString())
 
-        viewModel.insertImage(Artwork(objectID, uri.toString(), "", "", "", "", "", "", "", "", "", ""))
+        viewModel.insertImage(Artwork(objectID, uri.toString(), "", "", "", "", "", ""))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
