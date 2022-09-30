@@ -42,4 +42,5 @@
         android:id="@+id/APIServiceFragment"
         android:name="com.marsu.armuseumproject.fragments.APIServiceFragment"
         android:label="APIServiceFragment" />
+
 </navigation>

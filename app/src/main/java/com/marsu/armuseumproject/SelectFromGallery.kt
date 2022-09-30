@@ -67,6 +67,7 @@ class SelectFromGallery : Fragment() {
     private fun insertToDatabase(viewModel: SelectFromGalleryViewModel, uri: Uri?) {
         val objectID: Int = uri.hashCode() * -1
         Log.d("HASHCODE TEST", objectID.toString())
+
         viewModel.insertImage(Artwork(objectID, uri.toString(), "", "", "", "", "", "", "", "", "", ""))
     }
 
