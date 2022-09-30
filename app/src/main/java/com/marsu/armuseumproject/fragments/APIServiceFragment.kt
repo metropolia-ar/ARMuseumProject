@@ -1,11 +1,13 @@
 package com.marsu.armuseumproject.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.marsu.armuseumproject.adapters.ApiServiceAdapter
@@ -35,22 +37,24 @@ class APIServiceFragment : Fragment() {
 
         // Recyclerview setup
         adapter = ApiServiceAdapter()
+        adapter.setHasStableIds(true)
         layoutManager = LinearLayoutManager(activity)
-
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = layoutManager
-
-        // TODO: Add search functionality
-       /* binding.button2.setOnClickListener {
-            apiServiceViewModel.getArts(false)
-        }*/
-
         apiServiceViewModel.getArts(false)
+
+        // Search button
+        binding.button2.setOnClickListener {
+            apiServiceViewModel.searchArtsWithInput()
+            val kb = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            kb.hideSoftInputFromWindow(view?.windowToken, 0)
+        }
+
+        // Recyclerview updates when fetching data from API
         apiServiceViewModel.artsList.observe(viewLifecycleOwner) { arts ->
             arts.let {
-                Log.d("observing", it.toString())
                 adapter.setData(it)
             }
         }
@@ -59,7 +63,7 @@ class APIServiceFragment : Fragment() {
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (layoutManager.findLastVisibleItemPosition() >=
+                if (layoutManager.findLastCompletelyVisibleItemPosition() >=
                     (apiServiceViewModel.artsList.value?.size?.minus(apiServiceViewModel.paginationAmount) ?: 0)) {
 
                     if ((apiServiceViewModel.loadingResults.value == false)) {
@@ -70,11 +74,19 @@ class APIServiceFragment : Fragment() {
             }
         })
 
-
-        apiServiceViewModel.loadingResults.observe(viewLifecycleOwner) {status ->
+        // ProgressBar & recyclerview invisibility while loading
+        apiServiceViewModel.initialBatchLoaded.observe(viewLifecycleOwner) {status ->
             status.let {
-                if (it) binding.progressBar.visibility = View.VISIBLE
-                else binding.progressBar.visibility = View.INVISIBLE
+                if (!it) {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.recyclerView.visibility = View.INVISIBLE
+                    binding.button2.isEnabled = false
+                }
+                else {
+                    binding.progressBar.visibility = View.INVISIBLE
+                    binding.recyclerView.visibility = View.VISIBLE
+                    binding.button2.isEnabled = true
+                }
             }
         }
 

@@ -17,5 +17,6 @@ data class Artwork(
     val artistDisplayBio: String,
     val artistBeginDate: String,
     val artistEndDate: String,
-    val dimensions: String
+    val dimensions: String,
+    val classification: String
 )

@@ -16,10 +16,10 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
 
     private val initialBatchSize = 15
     private val service = APIService.service
-    private val searchInput = MutableLiveData("sunflower")
+    private val searchInput = MutableLiveData("sun")
 
-    private val _artsList = MutableLiveData(mutableListOf<Artwork>())
-    val artsList : LiveData<MutableList<Artwork>>
+    private val _artsList = MutableLiveData(listOf<Artwork>())
+    val artsList : LiveData<List<Artwork>>
         get() = _artsList
 
     private val _foundIDs = MutableLiveData<MutableList<Int>>()
@@ -29,6 +29,10 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
         get() = _loadingResults
 
     val paginationAmount = 10
+    private val _initialBatchLoaded = MutableLiveData(true)
+    val initialBatchLoaded : LiveData<Boolean>
+        get() = _initialBatchLoaded
+
     /**
      * Get Art ids and store them for later usage.
      */
@@ -52,7 +56,6 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
         CoroutineScope(Dispatchers.Main).launch {
 
             if (_foundIDs.value == null || refresh) {
-                Log.d("Fetching IDs @getArts", "refresh: $refresh")
                 _foundIDs.value = getArtIDs()
             }
 
@@ -61,6 +64,7 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
 
             if (_artsList.value == null || _artsList.value?.isEmpty() == true) {
 
+                _initialBatchLoaded.value = false
                 while (x < initialBatchSize.coerceAtMost(_foundIDs.value?.size ?: 0)) {
                     if (addArtIfImagesAreFound()) x++
                 }
@@ -76,12 +80,17 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
             Log.d("artsList size", artsList.value?.size.toString())
 
             _loadingResults.value = false
+            _initialBatchLoaded.value = true
         }
     }
 
-    // TODO: Search functionality
     fun searchArtsWithInput() {
-
+        if (searchInput.value?.isEmpty() == true) {
+            // TODO: Optional validators for the search input, i.e. has to be more than 3 characters etc.
+            return
+        }
+        _artsList.value = mutableListOf()
+        getArts(false)
     }
 
     /**
@@ -100,16 +109,12 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
             val art = service.getObjectByID(objectID)
 
             if (art.primaryImage.isNotEmpty() && art.primaryImageSmall.isNotEmpty()) {
-
-                val newList = mutableListOf<Artwork>()
-                newList.addAll(_artsList.value ?: mutableListOf())
-                newList.addAll(mutableListOf(art))
-                _artsList.value = newList
+                _artsList.value = _artsList.value.orEmpty() + art
                 return true
+            } else {
+                _foundIDs.value?.remove(objectID)
+                Log.d("Empty art removed", "id: $objectID")
             }
-            _foundIDs.value?.remove(objectID)
-            Log.d("Empty art removed", "id: $objectID")
-
         }
         catch (e: HttpException) {
             Log.d("HttpException @ addArtIfImagesAreFound, removing id $objectID", e.message.toString())
@@ -120,7 +125,6 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
         }
         return false
     }
-
 
     /**
      * Returns all the found departments.
