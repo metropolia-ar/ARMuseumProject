@@ -1,4 +1,4 @@
-package com.marsu.armuseumproject
+package com.marsu.armuseumproject.fragments
 
 import android.content.Intent
 import android.net.Uri
@@ -12,6 +12,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.marsu.armuseumproject.MyApp
+import com.marsu.armuseumproject.SelectFromGalleryViewModel
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.databinding.FragmentSelectFromGalleryBinding
 
