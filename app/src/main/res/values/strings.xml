@@ -8,4 +8,5 @@
     <string name="open_api_service">Open APIService</string>
     <string name="open_selectFromGallery">Open SFG</string>
     <string name="pickImageToast">You have to pick image from gallery before saving it</string>
+    <string name="save_image">Save image</string>
 </resources>

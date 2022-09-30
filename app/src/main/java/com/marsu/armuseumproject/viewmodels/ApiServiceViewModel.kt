@@ -14,10 +14,10 @@ import retrofit2.HttpException
 
 class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
 
+    private val classification = "Paintings"
     private val initialBatchSize = 15
     private val service = APIService.service
     private val searchInput = MutableLiveData("sun")
-
     private val _artsList = MutableLiveData(listOf<Artwork>())
     val artsList : LiveData<List<Artwork>>
         get() = _artsList
@@ -90,7 +90,8 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
             return
         }
         _artsList.value = mutableListOf()
-        getArts(false)
+        getArts(true)
+        Log.d("SearchInput value", searchInput.value.toString())
     }
 
     /**
@@ -108,7 +109,7 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
 
             val art = service.getObjectByID(objectID)
 
-            if (art.primaryImage.isNotEmpty() && art.primaryImageSmall.isNotEmpty()) {
+            if (isValidArt(art)) {
                 _artsList.value = _artsList.value.orEmpty() + art
                 return true
             } else {
@@ -124,6 +125,14 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
             Log.d("Exception @ addArtIfImagesAreFound", e.message.toString())
         }
         return false
+    }
+
+    /**
+     * True if contains the wanted data.
+     */
+    private fun isValidArt(art: Artwork): Boolean {
+        return art.primaryImage.isNotEmpty() &&
+                art.primaryImageSmall.isNotEmpty()
     }
 
     /**

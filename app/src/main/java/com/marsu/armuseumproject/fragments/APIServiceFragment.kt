@@ -33,7 +33,8 @@ class APIServiceFragment : Fragment() {
         apiServiceViewModel = ApiServiceViewModel()
         binding = FragmentApiServiceBinding.inflate(inflater)
         binding.apiServiceViewModel = apiServiceViewModel
-        binding.apiSearchInput.setOnQueryTextListener(apiServiceViewModel)
+
+//        binding.apiSearchInput.setOnQueryTextListener(apiServiceViewModel)
 
         // Recyclerview setup
         adapter = ApiServiceAdapter()
@@ -46,12 +47,12 @@ class APIServiceFragment : Fragment() {
         apiServiceViewModel.getArts(false)
 
         // Search button
-        binding.button2.setOnClickListener {
+  /*      binding.button2.setOnClickListener {
             apiServiceViewModel.searchArtsWithInput()
             val kb = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             kb.hideSoftInputFromWindow(view?.windowToken, 0)
         }
-
+*/
         // Recyclerview updates when fetching data from API
         apiServiceViewModel.artsList.observe(viewLifecycleOwner) { arts ->
             arts.let {
@@ -80,12 +81,12 @@ class APIServiceFragment : Fragment() {
                 if (!it) {
                     binding.progressBar.visibility = View.VISIBLE
                     binding.recyclerView.visibility = View.INVISIBLE
-                    binding.button2.isEnabled = false
+//                    binding.button2.isEnabled = false
                 }
                 else {
                     binding.progressBar.visibility = View.INVISIBLE
                     binding.recyclerView.visibility = View.VISIBLE
-                    binding.button2.isEnabled = true
+//                    binding.button2.isEnabled = true
                 }
             }
         }
