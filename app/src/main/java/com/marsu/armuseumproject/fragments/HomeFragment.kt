@@ -24,6 +24,7 @@ class HomeFragment : Fragment() {
 
         binding.arSelectionNavigation.setOnClickListener { view.findNavController().navigate(R.id.action_homeFragment_to_ar_Selection) }
         binding.openApiService.setOnClickListener { view.findNavController().navigate(R.id.action_homeFragment_to_APIServiceFragment) }
+        binding.openSFG.setOnClickListener { view.findNavController().navigate(R.id.action_homeFragment_to_selectFromGallery) }
 
         return view
     }

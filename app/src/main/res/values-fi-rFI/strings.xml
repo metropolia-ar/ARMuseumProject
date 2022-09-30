@@ -7,4 +7,6 @@
     <string name="start_ar">Aloita AR</string>
     <string name="add_artwork">Lisää taideteos</string>
     <string name="open_api_service">Avaa APIService</string>
+    <string name="open_selectFromGallery">Avaa SFG</string>
+    <string name="pickImageToast">Galleriasta pitää olla valittuna kuva ennen sen tallentamista</string>
 </resources>

@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.marsu.armuseumproject.MyApp
+import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.SelectFromGalleryViewModel
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.databinding.FragmentSelectFromGalleryBinding
@@ -49,7 +50,7 @@ class SelectFromGallery : Fragment() {
             if (imageUri == null) {
                 Toast.makeText(
                     MyApp.appContext,
-                    "You have to pick image before saving it",
+                    getString(R.string.pickImageToast),
                     Toast.LENGTH_SHORT
                 ).show()
             } else {

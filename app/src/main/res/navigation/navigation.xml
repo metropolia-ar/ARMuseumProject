@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_APIServiceFragment"
             app:destination="@id/APIServiceFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_selectFromGallery"
+            app:destination="@id/selectFromGallery" />
     </fragment>
     <fragment
         android:id="@+id/ar_Selection"
@@ -42,5 +45,13 @@
         android:id="@+id/APIServiceFragment"
         android:name="com.marsu.armuseumproject.fragments.APIServiceFragment"
         android:label="APIServiceFragment" />
+    <fragment
+        android:id="@+id/selectFromGallery"
+        android:name="com.marsu.armuseumproject.fragments.SelectFromGallery"
+        android:label="SelectFromGallery" >
+        <action
+            android:id="@+id/action_selectFromGallery_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 
 </navigation>
