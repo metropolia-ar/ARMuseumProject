@@ -10,8 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import com.marsu.armuseumproject.MyApp
 import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.SelectFromGalleryViewModel
@@ -39,7 +41,7 @@ class SelectFromGallery : Fragment() {
 
         val button: Button = binding.ChooseImage
         val saveButton: Button = binding.saveButton
-
+        val backButton: LinearLayout = binding.sfgBackButton
 
         button.setOnClickListener {
             openGalleryForImage()
@@ -56,11 +58,14 @@ class SelectFromGallery : Fragment() {
             }
 
         }
+
+        backButton.setOnClickListener { view.findNavController().navigate(R.id.action_selectFromGallery_to_homeFragment) }
+
         return view
     }
 
     private fun openGalleryForImage() {
-        val intent = Intent(Intent.ACTION_PICK)
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
         startActivityForResult(intent, REQUEST_CODE)
     }
