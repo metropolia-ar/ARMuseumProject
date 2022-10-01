@@ -57,6 +57,18 @@ object APIService {
         ): SearchResult
 
 
+        /**
+         * Returns paintings according to the given query parameter and departmentId.
+         */
+        @GET("search?")
+        suspend fun getArtIDs(
+            @Query("isOnView") isOnView : Boolean = true,
+            @Query("hasImages") hasImages : Boolean = true,
+            @Query("medium") medium : String = "Paintings",
+            @Query("q") q: String,
+            @Query("departmentId") departmentId: Int
+        ): SearchResult
+
     }
 
     private val retrofit = Retrofit.Builder()

@@ -1,4 +1,4 @@
-package com.marsu.armuseumproject
+package com.marsu.armuseumproject.fragments
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.databinding.FragmentArSelectionBinding
 import com.marsu.armuseumproject.viewmodels.ArSelectionViewModel
 

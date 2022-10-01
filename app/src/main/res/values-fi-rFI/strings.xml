@@ -10,4 +10,9 @@
     <string name="open_selectFromGallery">Avaa SFG</string>
     <string name="pickImageToast">Galleriasta pitää olla valittuna kuva ennen sen tallentamista</string>
     <string name="save_image">Tallenna kuva</string>
+    <string name="search">Etsi</string>
+    <string name="searching">Etsitään...</string>
+    <string name="results">tulosta</string>
+    <string name="result">tulos</string>
+    <string name="no_result">Ei tuloksia</string>
 </resources>

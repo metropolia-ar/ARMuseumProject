@@ -16,30 +16,48 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
 
     private val initialBatchSize = 15
     private val service = APIService.service
-    private val searchInput = MutableLiveData("sun")
+    val searchInput = MutableLiveData("cat")
+    private val departmentId = MutableLiveData(0)
+
+    private val _foundIDs = MutableLiveData<MutableList<Int>>()
+
     private val _artsList = MutableLiveData(listOf<Artwork>())
     val artsList : LiveData<List<Artwork>>
         get() = _artsList
-
-    private val _foundIDs = MutableLiveData<MutableList<Int>>()
 
     private val _loadingResults = MutableLiveData(false)
     val loadingResults: LiveData<Boolean>
         get() = _loadingResults
 
-    val paginationAmount = 10
     private val _initialBatchLoaded = MutableLiveData(true)
     val initialBatchLoaded : LiveData<Boolean>
         get() = _initialBatchLoaded
 
+    private val _resultAmount = MutableLiveData(0)
+    val resultAmount : LiveData<Int>
+        get() = _resultAmount
+
+    val paginationAmount = 10
     /**
      * Get Art ids and store them for later usage.
      */
     private suspend fun getArtIDs(): MutableList<Int> {
 
         return if (searchInput.value?.isNotEmpty() == true) {
-            val response = service.getArtIDs(q = searchInput.value.toString())
-            Log.d("getArtIDs", "Found ${response.objectIDs.size} ids")
+
+            val response = if (departmentId.value != 0) {
+                service.getArtIDs(q = searchInput.value.toString(), departmentId = departmentId.value ?: 0)
+            } else {
+                service.getArtIDs(q = searchInput.value.toString())
+            }
+
+            if (response.objectIDs.isNullOrEmpty()) {
+                Log.d("getArtIDs", "No objectIDs found")
+            } else {
+                Log.d("getArtIDs", "Found ${response.objectIDs.size} ids")
+            }
+
+
             response.objectIDs
         } else {
             mutableListOf()
@@ -63,10 +81,12 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
 
             if (_artsList.value == null || _artsList.value?.isEmpty() == true) {
 
+                _resultAmount.value = 0
                 _initialBatchLoaded.value = false
                 while (x < initialBatchSize.coerceAtMost(_foundIDs.value?.size ?: 0)) {
                     if (addArtIfImagesAreFound()) x++
                 }
+                _resultAmount.value = _foundIDs.value?.size ?: 0
 
             } else {
 
@@ -77,6 +97,7 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
 
             }
             Log.d("artsList size", artsList.value?.size.toString())
+
 
             _loadingResults.value = false
             _initialBatchLoaded.value = true
@@ -143,6 +164,8 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
             Log.d("getDepartments", "fetch ended $response")
         }
     }*/
+
+
 
     override fun onQueryTextSubmit(p0: String?): Boolean {
         searchInput.value = p0

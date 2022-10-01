@@ -7,11 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.navArgs
-import com.marsu.armuseumproject.ArActivityArgs
 import com.marsu.armuseumproject.R
-import com.marsu.armuseumproject.database.Artwork
-import com.marsu.armuseumproject.databinding.FragmentApiServiceBinding
 import com.marsu.armuseumproject.databinding.FragmentArtInfoBinding
 import com.squareup.picasso.Picasso
 
@@ -28,9 +24,6 @@ class ArtInfoFragment : Fragment() {
 
         binding = FragmentArtInfoBinding.inflate(inflater)
         binding.art = args.art
-
-        // TODO: Navigate to this fragment without resetting the recyclerview in ApiServiceFragment.
-        //  Maybe instantiate list onStart or onCreate etc?
 
         try {
             Picasso.get()

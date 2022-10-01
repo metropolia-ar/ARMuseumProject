@@ -1,4 +1,4 @@
-package com.marsu.armuseumproject
+package com.marsu.armuseumproject.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,6 +15,7 @@ import com.google.ar.sceneform.math.Vector3
 import com.google.ar.sceneform.rendering.ViewRenderable
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
+import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.databinding.ActivityArBinding
 
 const val MAX_IMAGE_HEIGHT = 300

@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/ar_Selection"
-        android:name="com.marsu.armuseumproject.ArSelection"
+        android:name="com.marsu.armuseumproject.fragments.ArSelection"
         android:label="fragment_ar__selection"
         tools:layout="@layout/fragment_ar_selection" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <activity
         android:id="@+id/arActivity"
-        android:name="com.marsu.armuseumproject.ArActivity"
+        android:name="com.marsu.armuseumproject.activities.ArActivity"
         android:label="activity_ar"
         tools:layout="@layout/activity_ar" >
         <argument
@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_APIServiceFragment_to_artInfoFragment2"
             app:destination="@id/artInfoFragment" />
+        <action
+            android:id="@+id/action_APIServiceFragment_to_popupActivity"
+            app:destination="@id/popupActivity" />
     </fragment>
     <fragment
         android:id="@+id/selectFromGallery"
@@ -71,5 +74,10 @@
             android:name="art"
             app:argType="com.marsu.armuseumproject.database.Artwork" />
     </fragment>
+    <activity
+        android:id="@+id/popupActivity"
+        android:name="com.marsu.armuseumproject.activities.PopupActivity"
+        android:label="activity_popup"
+        tools:layout="@layout/activity_popup" />
 
 </navigation>
