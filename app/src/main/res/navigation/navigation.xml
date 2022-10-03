@@ -49,8 +49,12 @@
             android:id="@+id/action_APIServiceFragment_to_artInfoFragment2"
             app:destination="@id/artInfoFragment" />
         <action
-            android:id="@+id/action_APIServiceFragment_to_popupActivity"
-            app:destination="@id/popupActivity" />
+            android:id="@+id/action_APIServiceFragment_to_selectDepartmentActivity"
+            app:destination="@id/selectDepartmentActivity"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/selectFromGallery"
@@ -75,9 +79,9 @@
             app:argType="com.marsu.armuseumproject.database.Artwork" />
     </fragment>
     <activity
-        android:id="@+id/popupActivity"
-        android:name="com.marsu.armuseumproject.activities.PopupActivity"
-        android:label="activity_popup"
-        tools:layout="@layout/activity_popup" />
+        android:id="@+id/selectDepartmentActivity"
+        android:name="com.marsu.armuseumproject.activities.SelectDepartmentActivity"
+        android:label="activity_select_department"
+        tools:layout="@layout/activity_select_department" />
 
 </navigation>

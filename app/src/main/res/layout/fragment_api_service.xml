@@ -88,12 +88,11 @@
                 android:layout_height="50dp"
                 android:background="#00000000"
                 android:padding="10dp"
-                android:text="@{apiServiceViewModel.searchInput}"
+                android:text="@={apiServiceViewModel.searchInput}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SpeakableTextPresentCheck" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/open_department_settings"

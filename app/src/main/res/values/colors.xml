@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="sapphire_blue">#006E90</color>
     <color name="sapphire_blue_dark">#004A61</color>
+    <color name="black_with_opacity">#55000000</color>
 </resources>

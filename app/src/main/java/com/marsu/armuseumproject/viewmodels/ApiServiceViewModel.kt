@@ -1,5 +1,7 @@
 package com.marsu.armuseumproject.viewmodels
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import android.widget.SearchView
 import androidx.lifecycle.LiveData
@@ -12,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
+class ApiServiceViewModel(val context: Context): ViewModel() {
 
     private val initialBatchSize = 15
     private val service = APIService.service
@@ -57,11 +59,16 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
                 Log.d("getArtIDs", "Found ${response.objectIDs.size} ids")
             }
 
-
             response.objectIDs
+
         } else {
             mutableListOf()
         }
+    }
+
+    fun updateDepartmentID() {
+        val pref: SharedPreferences = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
+        departmentId.value = pref.getInt("selectedDepartment", 0)
     }
 
 
@@ -83,7 +90,7 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
 
                 _resultAmount.value = 0
                 _initialBatchLoaded.value = false
-                while (x < initialBatchSize.coerceAtMost(_foundIDs.value?.size ?: 0)) {
+                while (x < initialBatchSize.coerceAtMost(_foundIDs.value?.size?.minus(1) ?: 0)) {
                     if (addArtIfImagesAreFound()) x++
                 }
                 _resultAmount.value = _foundIDs.value?.size ?: 0
@@ -155,25 +162,5 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
                 art.primaryImageSmall.isNotEmpty()
     }
 
-    /**
-     * Returns all the found departments.
-     */
- /*   fun getDepartments() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = service.getDepartments()
-            Log.d("getDepartments", "fetch ended $response")
-        }
-    }*/
 
-
-
-    override fun onQueryTextSubmit(p0: String?): Boolean {
-        searchInput.value = p0
-        return true
-    }
-
-    override fun onQueryTextChange(p0: String?): Boolean {
-        searchInput.value = p0
-        return true
-    }
 }

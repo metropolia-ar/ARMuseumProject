@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.activities.PopupActivity
+import com.marsu.armuseumproject.activities.SelectDepartmentActivity
 import com.marsu.armuseumproject.adapters.ApiServiceAdapter
 import com.marsu.armuseumproject.databinding.FragmentApiServiceBinding
 import com.marsu.armuseumproject.viewmodels.ApiServiceViewModel
@@ -32,7 +33,7 @@ class APIServiceFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         // Init VM
-        apiServiceViewModel = ApiServiceViewModel()
+        apiServiceViewModel = ApiServiceViewModel(requireActivity())
         apiServiceViewModel.getArts(false)
     }
 
@@ -64,7 +65,7 @@ class APIServiceFragment : Fragment() {
 
         // Department settings
         binding.openDepartmentSettings.setOnClickListener {
-            val intent = Intent(activity, PopupActivity::class.java)
+            val intent = Intent(activity, SelectDepartmentActivity::class.java)
             startActivity(intent)
         }
 
@@ -74,6 +75,7 @@ class APIServiceFragment : Fragment() {
                 adapter.setData(it)
             }
         }
+
 
         apiServiceViewModel.resultAmount.observe(viewLifecycleOwner) {
             it.let {
@@ -85,7 +87,6 @@ class APIServiceFragment : Fragment() {
                     binding.resultAmount.text = "${resources.getString(R.string.no_result)}"
                 }
             }
-
         }
 
 
@@ -124,5 +125,12 @@ class APIServiceFragment : Fragment() {
 
 
         return binding.root
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        apiServiceViewModel.updateDepartmentID()
+
     }
 }

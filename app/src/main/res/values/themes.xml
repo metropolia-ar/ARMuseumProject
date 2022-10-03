@@ -17,6 +17,7 @@
     <style name="Theme.ARMuseumProject.PopupTheme">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
+<!--        <item name="android:colorBackground">#ffffff</item>-->
     </style>
 
 </resources>

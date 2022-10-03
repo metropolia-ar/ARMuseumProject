@@ -44,7 +44,6 @@ object APIService {
         @GET("departments")
         suspend fun getDepartmentArts()
 
-
         /**
          * Returns paintings according to the given query parameter.
          */
@@ -55,7 +54,6 @@ object APIService {
             @Query("medium") medium : String = "Paintings",
             @Query("q") q: String
         ): SearchResult
-
 
         /**
          * Returns paintings according to the given query parameter and departmentId.
