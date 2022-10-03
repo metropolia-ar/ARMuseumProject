@@ -8,5 +8,11 @@
     <string name="add_artwork">Lisää taideteos</string>
     <string name="open_api_service">Avaa APIService</string>
     <string name="open_selectFromGallery">Avaa SFG</string>
-    <string name="pickImageToast">Galleriasta pitää olla valittuna kuva ennen sen tallentamista</string>
+    <string name="pickImageToast">Galleriasta pitää olla valittuna kuva ja kuvalle on annettava nimi ennen sen tallentamista</string>
+    <string name="galleryButton">Galleria</string>
+    <string name="saveButton">Tallenna</string>
+    <string name="Title">Nimi *</string>
+    <string name="Artist">Tekijä</string>
+    <string name="classification">Taidelaji</string>
+    <string name="department">Tyylilaji</string>
 </resources>
