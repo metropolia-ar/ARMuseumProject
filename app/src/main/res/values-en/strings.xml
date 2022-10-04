@@ -8,5 +8,11 @@
     <string name="add_artwork">Add artwork</string>
     <string name="open_api_service">Open APIService</string>
     <string name="open_selectFromGallery">Open SFG</string>
-    <string name="pickImageToast">You have to pick image from gallery before saving it</string>
+    <string name="pickImageToast">You have to pick image and enter title before saving it</string>
+    <string name="galleryButton">Gallery</string>
+    <string name="saveButton">Save</string>
+    <string name="Title">Title *</string>
+    <string name="Artist">Artist</string>
+    <string name="department">Department</string>
+    <string name="classification">Classification</string>
 </resources>
