@@ -58,7 +58,7 @@ class SelectFromGallery : Fragment() {
         val imgView = binding.imageFromGallery
         val constraint = binding.ConstraintLayout
 
-        imgView.setImageResource(R.drawable.image_not_found)
+        imgView.setImageResource(R.drawable.ic_baseline_image_24)
 
         constraint.setOnClickListener {
             clearFocuses(
@@ -155,7 +155,7 @@ class SelectFromGallery : Fragment() {
         artist.clearFocus()
         department.clearFocus()
         classification.clearFocus()
-        imgView.setImageResource(R.drawable.image_not_found)
+        imgView.setImageResource(R.drawable.ic_baseline_image_24)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
