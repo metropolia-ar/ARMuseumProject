@@ -15,6 +15,9 @@
     <string name="results">results</string>
     <string name="result">result</string>
     <string name="no_result">No results</string>
+    <string name="reset">Reset</string>
+    <string name="search_arts">Search art..</string>
+    <string name="filter">Filter</string>
 
     <string name="dep1">American Decorative Arts</string>
     <string name="dep3">Ancient Near Eastern Art</string>

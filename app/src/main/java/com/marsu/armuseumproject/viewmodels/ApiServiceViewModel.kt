@@ -19,7 +19,14 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
     private val initialBatchSize = 15
     private val service = APIService.service
     val searchInput = MutableLiveData("cat")
-    private val departmentId = MutableLiveData(0)
+
+    private val _departmentText = MutableLiveData("")
+    val departmentText : LiveData<String>
+            get() = _departmentText
+
+    private val _departmentId = MutableLiveData(0)
+    val departmentId : LiveData<Int>
+        get() = _departmentId
 
     private val _foundIDs = MutableLiveData<MutableList<Int>>()
 
@@ -40,6 +47,7 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
         get() = _resultAmount
 
     val paginationAmount = 10
+
     /**
      * Get Art ids and store them for later usage.
      */
@@ -66,9 +74,17 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
         }
     }
 
+    // TODO: Update ApiServiceFragment when closing SelectDepActivity and (search again) when departmentId has changed
     fun updateDepartmentID() {
         val pref: SharedPreferences = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
-        departmentId.value = pref.getInt("selectedDepartment", 0)
+        val newDep = pref.getInt("selectedDepartment", 0)
+        if (newDep != departmentId.value) {
+            _departmentId.value = newDep
+            getArts(true)
+        } else {
+            _departmentId.value = newDep
+        }
+        updateDepartmentName()
     }
 
 
@@ -81,30 +97,29 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
 
             if (_foundIDs.value == null || refresh) {
                 _foundIDs.value = getArtIDs()
+                _artsList.value = emptyList()
             }
-
             _loadingResults.value = true
-            var x = 0
 
             if (_artsList.value == null || _artsList.value?.isEmpty() == true) {
 
                 _resultAmount.value = 0
                 _initialBatchLoaded.value = false
-                while (x < initialBatchSize.coerceAtMost(_foundIDs.value?.size?.minus(1) ?: 0)) {
-                    if (addArtIfImagesAreFound()) x++
+
+                for (i in  1..initialBatchSize.coerceAtMost(_foundIDs.value?.size?.minus(1) ?: 0)) {
+                    addArtIfImagesAreFound()
                 }
                 _resultAmount.value = _foundIDs.value?.size ?: 0
 
             } else {
 
-                while (x < paginationAmount) {
+                for (i in 1..paginationAmount) {
                     if ((_artsList.value?.size ?: 0) >= (_foundIDs.value?.size ?: 0)) break
-                    if (addArtIfImagesAreFound()) x++
+                    addArtIfImagesAreFound()
                 }
-
             }
-            Log.d("artsList size", artsList.value?.size.toString())
 
+            Log.d("artsList size", artsList.value?.size.toString())
 
             _loadingResults.value = false
             _initialBatchLoaded.value = true
@@ -119,6 +134,22 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
         _artsList.value = mutableListOf()
         getArts(true)
         Log.d("SearchInput value", searchInput.value.toString())
+    }
+
+    fun resetSelectedDepartment() {
+        val pref: SharedPreferences = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.putInt("selectedDepartment", 0)
+        editor.putInt("selectedDepartmentRadioButton", 0)
+        editor.putString("selectedDepartmentName", "")
+        editor.apply()
+        updateDepartmentID()
+        getArts(true)
+    }
+
+    private fun updateDepartmentName() {
+        val pref: SharedPreferences = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
+        _departmentText.value = pref.getString("selectedDepartmentName", "")
     }
 
     /**
@@ -161,6 +192,7 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
         return art.primaryImage.isNotEmpty() &&
                 art.primaryImageSmall.isNotEmpty()
     }
+
 
 
 }

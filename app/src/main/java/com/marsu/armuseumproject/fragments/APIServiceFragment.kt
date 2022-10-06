@@ -45,6 +45,7 @@ class APIServiceFragment : Fragment() {
         // Initialize databinding
         binding = FragmentApiServiceBinding.inflate(inflater)
         binding.apiServiceViewModel = apiServiceViewModel
+        binding.lifecycleOwner = this
 
         // Recyclerview setup
         adapter = ApiServiceAdapter()
@@ -69,6 +70,12 @@ class APIServiceFragment : Fragment() {
             startActivity(intent)
         }
 
+        // Clear button for department
+        binding.resetDepartment.setOnClickListener {
+            apiServiceViewModel.resetSelectedDepartment()
+        }
+
+
         // Recyclerview updates when fetching data from API
         apiServiceViewModel.artsList.observe(viewLifecycleOwner) { arts ->
             arts.let {
@@ -76,10 +83,20 @@ class APIServiceFragment : Fragment() {
             }
         }
 
+        apiServiceViewModel.initialBatchLoaded.observe(viewLifecycleOwner) {
+            it.let {
+                if (!it) {
+                    binding.resultAmount.text = "Loading.."
+                }
+            }
+        }
 
+
+        // TODO: Set resultAmount.text at loadingResults. From there, get the resultAmount and set the text. Might want to move this logic to
+        //  the VM as well.
         apiServiceViewModel.resultAmount.observe(viewLifecycleOwner) {
             it.let {
-                if (it == 1) {
+             if (it == 1) {
                     binding.resultAmount.text = "$it ${resources.getString(R.string.result)}"
                 } else if (it > 1) {
                     binding.resultAmount.text = "$it ${resources.getString(R.string.results)}"
@@ -89,6 +106,15 @@ class APIServiceFragment : Fragment() {
             }
         }
 
+        apiServiceViewModel.departmentId.observe(viewLifecycleOwner) {
+            it.let {
+                if (it == 0) {
+                    binding.departmentIndicator.visibility = View.GONE
+                } else {
+                    binding.departmentIndicator.visibility = View.VISIBLE
+                }
+            }
+        }
 
         // RecyclerView pagination
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -112,16 +138,15 @@ class APIServiceFragment : Fragment() {
                     binding.progressBar.visibility = View.VISIBLE
                     binding.recyclerView.visibility = View.INVISIBLE
                     binding.searchButton.isEnabled = false
-                    binding.searchButton.text = resources.getString(R.string.searching)
                 }
                 else {
                     binding.progressBar.visibility = View.INVISIBLE
                     binding.recyclerView.visibility = View.VISIBLE
                     binding.searchButton.isEnabled = true
-                    binding.searchButton.text = resources.getString(R.string.search)
                 }
             }
         }
+
 
 
         return binding.root
@@ -131,6 +156,5 @@ class APIServiceFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         apiServiceViewModel.updateDepartmentID()
-
     }
 }

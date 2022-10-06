@@ -6,8 +6,10 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="transparent">#00000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="sapphire_blue">#006E90</color>
     <color name="sapphire_blue_dark">#004A61</color>
     <color name="black_with_opacity">#55000000</color>
+    <color name="alice_blue">#f0f8ff</color>
 </resources>

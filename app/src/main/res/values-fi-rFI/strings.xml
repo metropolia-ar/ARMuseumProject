@@ -15,6 +15,9 @@
     <string name="results">tulosta</string>
     <string name="result">tulos</string>
     <string name="no_result">Ei tuloksia</string>
+    <string name="reset">Tyhjennä</string>
+    <string name="search_arts">Etsi teoksia..</string>
+    <string name="filter">Rajaa</string>
 
     <string name="dep1">American Decorative Arts</string>
     <string name="dep3">Ancient Near Eastern Art</string>
