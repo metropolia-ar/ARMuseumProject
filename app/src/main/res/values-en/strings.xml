@@ -15,4 +15,8 @@
     <string name="Artist">Artist</string>
     <string name="department">Department</string>
     <string name="classification">Classification</string>
+    <string name="home">Home</string>
+    <string name="online_artwork">Online artwork</string>
+    <string name="chosen_artwork">Chosen artwork:</string>
+    <string name="none">None</string>
 </resources>

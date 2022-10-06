@@ -15,4 +15,8 @@
     <string name="Artist">Tekijä</string>
     <string name="classification">Taidelaji</string>
     <string name="department">Tyylilaji</string>
+    <string name="home">Koti</string>
+    <string name="online_artwork">Taideteokset netissä</string>
+    <string name="chosen_artwork">Valittu taideteos:</string>
+    <string name="none">Ei mitään</string>
 </resources>

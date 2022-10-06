@@ -8,11 +8,12 @@ import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.databinding.ArtListItemBinding
 import com.squareup.picasso.Picasso
+import javax.inject.Inject
 
 class ApiServiceAdapter: RecyclerView.Adapter<ApiServiceAdapter.ApiServiceViewHolder>() {
 
+    var onItemClick: ((Artwork) -> Unit)? = null
     private var artList: List<Artwork> = emptyList()
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ApiServiceViewHolder {
         val binding = ArtListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -53,7 +54,13 @@ class ApiServiceAdapter: RecyclerView.Adapter<ApiServiceAdapter.ApiServiceViewHo
         notifyDataSetChanged()
     }
 
-
-    class ApiServiceViewHolder(val binding: ArtListItemBinding): RecyclerView.ViewHolder(binding.root)
+    // Add a onItemClick function that can be called from fragments via ApiServiceAdapter.onItemClick = {}
+    inner class ApiServiceViewHolder(val binding: ArtListItemBinding): RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.recyclerCard.setOnClickListener {
+                onItemClick?.invoke(artList[adapterPosition])
+            }
+        }
+    }
 }
 
