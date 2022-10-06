@@ -16,6 +16,5 @@ data class Artwork(
     val department: String,
     val title: String,
     val artistDisplayName: String,
-    val dimensions: String,
     val classification: String
 ) : Parcelable

@@ -38,4 +38,15 @@
     <string name="dep18">Musical Instruments</string>
     <string name="dep19">Photographs</string>
     <string name="dep21">Modern Art</string>
+    <string name="galleryButton">Gallery</string>
+    <string name="saveButton">Save</string>
+    <string name="Title">Title *</string>
+    <string name="Artist">Artist</string>
+    <string name="department">Department</string>
+    <string name="classification">Classification</string>
+    <string name="home">Home</string>
+    <string name="online_artwork">Online artwork</string>
+    <string name="ar" translatable="false">AR</string>
+    <string name="chosen_artwork">Chosen artwork:</string>
+    <string name="none">None</string>
 </resources>

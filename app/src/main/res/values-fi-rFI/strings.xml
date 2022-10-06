@@ -39,4 +39,14 @@
     <string name="dep18">Musical Instruments</string>
     <string name="dep19">Photographs</string>
     <string name="dep21">Modern Art</string>
+    <string name="galleryButton">Galleria</string>
+    <string name="saveButton">Tallenna</string>
+    <string name="Title">Nimi *</string>
+    <string name="Artist">Tekijä</string>
+    <string name="classification">Taidelaji</string>
+    <string name="department">Tyylilaji</string>
+    <string name="home">Koti</string>
+    <string name="online_artwork">Taideteokset netissä</string>
+    <string name="chosen_artwork">Valittu taideteos:</string>
+    <string name="none">Ei mitään</string>
 </resources>
