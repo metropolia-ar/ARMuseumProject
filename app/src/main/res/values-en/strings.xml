@@ -18,6 +18,7 @@
     <string name="reset">Reset</string>
     <string name="search_arts">Search art..</string>
     <string name="filter">Filter</string>
+    <string name="not_found_text">It is really quiet in here..</string>
 
     <string name="dep1">American Decorative Arts</string>
     <string name="dep3">Ancient Near Eastern Art</string>

@@ -3,10 +3,12 @@ package com.marsu.armuseumproject.viewmodels
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import android.view.View
 import android.widget.SearchView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.service.APIService
 import kotlinx.coroutines.CoroutineScope
@@ -24,6 +26,10 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
     val departmentText : LiveData<String>
             get() = _departmentText
 
+    private val _resultText = MutableLiveData("")
+    val resultText : LiveData<String>
+        get() = _resultText
+
     private val _departmentId = MutableLiveData(0)
     val departmentId : LiveData<Int>
         get() = _departmentId
@@ -34,17 +40,21 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
     val artsList : LiveData<List<Artwork>>
         get() = _artsList
 
-    private val _loadingResults = MutableLiveData(false)
+    private val _loadingResults = MutableLiveData(true)
     val loadingResults: LiveData<Boolean>
         get() = _loadingResults
 
-    private val _initialBatchLoaded = MutableLiveData(true)
+    private val _initialBatchLoaded = MutableLiveData(false)
     val initialBatchLoaded : LiveData<Boolean>
         get() = _initialBatchLoaded
 
     private val _resultAmount = MutableLiveData(0)
     val resultAmount : LiveData<Int>
         get() = _resultAmount
+
+    private val _displayNotFound = MutableLiveData(View.GONE)
+    val displayNotFound : LiveData<Int>
+        get() = _displayNotFound
 
     val paginationAmount = 10
 
@@ -104,7 +114,8 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
             if (_artsList.value == null || _artsList.value?.isEmpty() == true) {
 
                 _resultAmount.value = 0
-                _initialBatchLoaded.value = false
+                if (_initialBatchLoaded.value != false) _initialBatchLoaded.value = false
+
 
                 for (i in  1..initialBatchSize.coerceAtMost(_foundIDs.value?.size?.minus(1) ?: 0)) {
                     addArtIfImagesAreFound()
@@ -146,6 +157,29 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
         updateDepartmentID()
         getArts(true)
     }
+
+    fun updateResultText() {
+
+        val r = resultAmount.value
+
+        if (initialBatchLoaded.value != true) {
+            _resultText.value = context.getString(R.string.searching)
+            _displayNotFound.value = View.GONE
+            return
+        } else if (r == 1) {
+            _resultText.value = "$r ${context.getString(R.string.result)}"
+            _displayNotFound.value = View.GONE
+        } else if (r != null) {
+            if (r > 1) {
+                _resultText.value = "$r ${context.getString(R.string.results)}"
+                _displayNotFound.value = View.GONE
+            } else {
+                _resultText.value = context.getString(R.string.no_result)
+                _displayNotFound.value = View.VISIBLE
+            }
+        }
+    }
+
 
     private fun updateDepartmentName() {
         val pref: SharedPreferences = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)

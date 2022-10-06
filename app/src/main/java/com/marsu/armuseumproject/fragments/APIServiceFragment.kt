@@ -34,7 +34,7 @@ class APIServiceFragment : Fragment() {
 
         // Init VM
         apiServiceViewModel = ApiServiceViewModel(requireActivity())
-        apiServiceViewModel.getArts(false)
+        apiServiceViewModel.getArts(true)
     }
 
     override fun onCreateView(
@@ -64,6 +64,8 @@ class APIServiceFragment : Fragment() {
             kb.hideSoftInputFromWindow(view?.windowToken, 0)
         }
 
+
+
         // Department settings
         binding.openDepartmentSettings.setOnClickListener {
             val intent = Intent(activity, SelectDepartmentActivity::class.java)
@@ -75,7 +77,6 @@ class APIServiceFragment : Fragment() {
             apiServiceViewModel.resetSelectedDepartment()
         }
 
-
         // Recyclerview updates when fetching data from API
         apiServiceViewModel.artsList.observe(viewLifecycleOwner) { arts ->
             arts.let {
@@ -83,26 +84,9 @@ class APIServiceFragment : Fragment() {
             }
         }
 
-        apiServiceViewModel.initialBatchLoaded.observe(viewLifecycleOwner) {
+        apiServiceViewModel.displayNotFound.observe(viewLifecycleOwner) {
             it.let {
-                if (!it) {
-                    binding.resultAmount.text = "Loading.."
-                }
-            }
-        }
-
-
-        // TODO: Set resultAmount.text at loadingResults. From there, get the resultAmount and set the text. Might want to move this logic to
-        //  the VM as well.
-        apiServiceViewModel.resultAmount.observe(viewLifecycleOwner) {
-            it.let {
-             if (it == 1) {
-                    binding.resultAmount.text = "$it ${resources.getString(R.string.result)}"
-                } else if (it > 1) {
-                    binding.resultAmount.text = "$it ${resources.getString(R.string.results)}"
-                } else {
-                    binding.resultAmount.text = "${resources.getString(R.string.no_result)}"
-                }
+                binding.notFoundContainer.visibility = it
             }
         }
 
@@ -144,6 +128,8 @@ class APIServiceFragment : Fragment() {
                     binding.recyclerView.visibility = View.VISIBLE
                     binding.searchButton.isEnabled = true
                 }
+                apiServiceViewModel.updateResultText()
+
             }
         }
 
