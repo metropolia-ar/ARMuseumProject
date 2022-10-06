@@ -3,57 +3,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ArSelection">
 
-        <LinearLayout
-            android:id="@+id/back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ar_selection_recyclerview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/chosen_text_box"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/art_list_item" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_back_arrow" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/back"
-                android:textColor="?attr/colorOnBackground"
-                android:layout_gravity="center_vertical"/>
-        </LinearLayout>
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp">
-            <Button
-                android:id="@+id/select_photo_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/select_photo" />
-
-            <ImageView
-                android:id="@+id/preview_photo"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:layout_below="@id/select_photo_button"
-                android:layout_marginTop="20dp"/>
-        </RelativeLayout>
         <Button
             android:id="@+id/start_ar_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/start_ar"
             android:layout_margin="20dp"
-            android:layout_gravity="bottom|center_horizontal"
-            android:enabled="false"/>
-    </FrameLayout>
+            android:enabled="false"
+            android:text="@string/start_ar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/chosen_text_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/start_ar_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/chosen_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/chosen_artwork"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/chosen_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/none"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/chosen_artist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
