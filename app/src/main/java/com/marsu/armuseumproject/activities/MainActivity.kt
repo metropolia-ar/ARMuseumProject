@@ -1,15 +1,12 @@
-package com.marsu.armuseumproject
+package com.marsu.armuseumproject.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.marsu.armuseumproject.databinding.ActivityMainBinding
-import com.marsu.armuseumproject.viewmodels.ApiServiceViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.marsu.armuseumproject.R
 
 class MainActivity : AppCompatActivity() {
 

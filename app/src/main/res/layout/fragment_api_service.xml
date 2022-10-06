@@ -11,44 +11,194 @@
             type="com.marsu.armuseumproject.viewmodels.ApiServiceViewModel"/>
     </data>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/api_search_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        android:background="@color/alice_blue"
+        tools:context=".activities.MainActivity">
 
-
-        <SearchView
-            android:id="@+id/api_search_input"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button2"
+            app:layout_constraintTop_toBottomOf="@+id/result_amount"
             tools:listitem="@layout/art_list_item" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="0dp"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/search_input_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Search"
+            android:elevation="10dp"
+            android:animateLayoutChanges="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/api_search_input" />
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <ImageButton
+                android:id="@+id/open_department_settings"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/transparent"
+                app:layout_constraintBottom_toBottomOf="@+id/search_input_field_container"
+                app:layout_constraintEnd_toStartOf="@+id/filter_text"
+                app:layout_constraintTop_toTopOf="@+id/search_input_field_container"
+                app:srcCompat="@drawable/ic_baseline_filter_alt_24"
+                app:tint="@color/sapphire_blue_dark" />
+
+            <TextView
+                android:id="@+id/filter_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/filter"
+                android:textColor="@color/sapphire_blue_dark"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/open_department_settings"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/open_department_settings" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/search_input_field_container"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/edittext_custom_background"
+                app:layout_constraintEnd_toStartOf="@+id/open_department_settings"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/api_search_input"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:background="@color/transparent"
+                    android:hint="@string/search_arts"
+                    android:padding="10dp"
+                    android:singleLine="true"
+                    android:text="@={apiServiceViewModel.searchInput}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/search_button"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/search_button"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/transparent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_search_32"
+                    app:tint="@color/sapphire_blue_dark"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/department_indicator"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/department_indicator_background"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/search_input_field_container">
+
+                <TextView
+                    android:id="@+id/department_text"
+                    android:layout_width="156dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center|start"
+                    android:text="@{apiServiceViewModel.departmentText}"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/reset_department"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/reset_department"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    app:layout_constraintBottom_toBottomOf="@+id/department_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/department_text"
+                    app:srcCompat="@drawable/ic_baseline_close_24"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/result_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/sapphire_blue_dark"
+            android:text="@{apiServiceViewModel.resultText}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_input_container" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/not_found_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/recycler_view">
+
+            <ImageView
+                android:id="@+id/not_found_icon"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_not_listed_location_24"
+                app:tint="@color/sapphire_blue" />
+
+            <TextView
+                android:id="@+id/not_found_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/not_found_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/sapphire_blue"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/not_found_icon" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.64" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -60,11 +210,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/api_search_input" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 </layout>
 

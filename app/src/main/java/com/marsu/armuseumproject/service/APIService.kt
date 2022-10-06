@@ -44,18 +44,28 @@ object APIService {
         @GET("departments")
         suspend fun getDepartmentArts()
 
-
         /**
          * Returns paintings according to the given query parameter.
          */
         @GET("search?")
         suspend fun getArtIDs(
-            @Query("q") q: String,
             @Query("isOnView") isOnView : Boolean = true,
-            @Query("medium") medium : String = "Paintings",
             @Query("hasImages") hasImages : Boolean = true,
+            @Query("medium") medium : String = "Paintings",
+            @Query("q") q: String
         ): SearchResult
 
+        /**
+         * Returns paintings according to the given query parameter and departmentId.
+         */
+        @GET("search?")
+        suspend fun getArtIDs(
+            @Query("isOnView") isOnView : Boolean = true,
+            @Query("hasImages") hasImages : Boolean = true,
+            @Query("medium") medium : String = "Paintings",
+            @Query("q") q: String,
+            @Query("departmentId") departmentId: Int
+        ): SearchResult
 
     }
 

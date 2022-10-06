@@ -1,4 +1,4 @@
-package com.marsu.armuseumproject
+package com.marsu.armuseumproject.fragments
 
 import android.net.Uri
 import android.os.Bundle
@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.marsu.armuseumproject.adapters.ApiServiceAdapter
 import com.marsu.armuseumproject.adapters.ArSelectionAdapter
+import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.databinding.FragmentArSelectionBinding
 import com.marsu.armuseumproject.viewmodels.ArSelectionViewModel
 

@@ -3,10 +3,13 @@ package com.marsu.armuseumproject.adapters
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.databinding.ArtListItemBinding
+import com.marsu.armuseumproject.fragments.APIServiceFragmentDirections
+import com.marsu.armuseumproject.fragments.ArtInfoFragment
 import com.squareup.picasso.Picasso
 
 class ApiServiceAdapter: RecyclerView.Adapter<ApiServiceAdapter.ApiServiceViewHolder>() {
@@ -28,6 +31,12 @@ class ApiServiceAdapter: RecyclerView.Adapter<ApiServiceAdapter.ApiServiceViewHo
         var artistName = ""
         if (art.artistDisplayName.isNotEmpty()) artistName = "By ${art.artistDisplayName}"
         holder.binding.imageArtist.text = artistName
+
+        holder.binding.listItem.setOnClickListener {
+            Log.d("Clicked on", art.title)
+            val action = APIServiceFragmentDirections.actionAPIServiceFragmentToArtInfoFragment2(art)
+            holder.itemView.findNavController().navigate(action)
+        }
 
         try {
             Picasso.get()

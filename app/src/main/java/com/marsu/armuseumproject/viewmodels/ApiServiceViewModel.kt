@@ -1,10 +1,14 @@
 package com.marsu.armuseumproject.viewmodels
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
+import android.view.View
 import android.widget.SearchView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.service.APIService
 import kotlinx.coroutines.CoroutineScope
@@ -12,26 +16,47 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
+class ApiServiceViewModel(val context: Context): ViewModel() {
 
     private val initialBatchSize = 15
     private val service = APIService.service
-    private val searchInput = MutableLiveData("sun")
+    val searchInput = MutableLiveData("cat")
+
+    private val _departmentText = MutableLiveData("")
+    val departmentText : LiveData<String>
+            get() = _departmentText
+
+    private val _resultText = MutableLiveData("")
+    val resultText : LiveData<String>
+        get() = _resultText
+
+    private val _departmentId = MutableLiveData(0)
+    val departmentId : LiveData<Int>
+        get() = _departmentId
+
+    private val _foundIDs = MutableLiveData<MutableList<Int>>()
 
     private val _artsList = MutableLiveData(listOf<Artwork>())
     val artsList : LiveData<List<Artwork>>
         get() = _artsList
 
-    private val _foundIDs = MutableLiveData<MutableList<Int>>()
-
-    private val _loadingResults = MutableLiveData(false)
+    private val _loadingResults = MutableLiveData(true)
     val loadingResults: LiveData<Boolean>
         get() = _loadingResults
 
-    val paginationAmount = 10
-    private val _initialBatchLoaded = MutableLiveData(true)
+    private val _initialBatchLoaded = MutableLiveData(false)
     val initialBatchLoaded : LiveData<Boolean>
         get() = _initialBatchLoaded
+
+    private val _resultAmount = MutableLiveData(0)
+    val resultAmount : LiveData<Int>
+        get() = _resultAmount
+
+    private val _displayNotFound = MutableLiveData(View.GONE)
+    val displayNotFound : LiveData<Int>
+        get() = _displayNotFound
+
+    val paginationAmount = 10
 
     /**
      * Get Art ids and store them for later usage.
@@ -39,12 +64,37 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
     private suspend fun getArtIDs(): MutableList<Int> {
 
         return if (searchInput.value?.isNotEmpty() == true) {
-            val response = service.getArtIDs(searchInput.value.toString())
-            Log.d("getArtIDs", "Found ${response.objectIDs.size} ids")
+
+            val response = if (departmentId.value != 0) {
+                service.getArtIDs(q = searchInput.value.toString(), departmentId = departmentId.value ?: 0)
+            } else {
+                service.getArtIDs(q = searchInput.value.toString())
+            }
+
+            if (response.objectIDs.isNullOrEmpty()) {
+                Log.d("getArtIDs", "No objectIDs found")
+            } else {
+                Log.d("getArtIDs", "Found ${response.objectIDs.size} ids")
+            }
+
             response.objectIDs
+
         } else {
             mutableListOf()
         }
+    }
+
+    // TODO: Update ApiServiceFragment when closing SelectDepActivity and (search again) when departmentId has changed
+    fun updateDepartmentID() {
+        val pref: SharedPreferences = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
+        val newDep = pref.getInt("selectedDepartment", 0)
+        if (newDep != departmentId.value) {
+            _departmentId.value = newDep
+            getArts(true)
+        } else {
+            _departmentId.value = newDep
+        }
+        updateDepartmentName()
     }
 
 
@@ -57,26 +107,29 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
 
             if (_foundIDs.value == null || refresh) {
                 _foundIDs.value = getArtIDs()
+                _artsList.value = emptyList()
             }
-
             _loadingResults.value = true
-            var x = 0
 
             if (_artsList.value == null || _artsList.value?.isEmpty() == true) {
 
-                _initialBatchLoaded.value = false
-                while (x < initialBatchSize.coerceAtMost(_foundIDs.value?.size ?: 0)) {
-                    if (addArtIfImagesAreFound()) x++
+                _resultAmount.value = 0
+                if (_initialBatchLoaded.value != false) _initialBatchLoaded.value = false
+
+
+                for (i in  1..initialBatchSize.coerceAtMost(_foundIDs.value?.size?.minus(1) ?: 0)) {
+                    addArtIfImagesAreFound()
                 }
+                _resultAmount.value = _foundIDs.value?.size ?: 0
 
             } else {
 
-                while (x < paginationAmount) {
+                for (i in 1..paginationAmount) {
                     if ((_artsList.value?.size ?: 0) >= (_foundIDs.value?.size ?: 0)) break
-                    if (addArtIfImagesAreFound()) x++
+                    addArtIfImagesAreFound()
                 }
-
             }
+
             Log.d("artsList size", artsList.value?.size.toString())
 
             _loadingResults.value = false
@@ -90,7 +143,47 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
             return
         }
         _artsList.value = mutableListOf()
-        getArts(false)
+        getArts(true)
+        Log.d("SearchInput value", searchInput.value.toString())
+    }
+
+    fun resetSelectedDepartment() {
+        val pref: SharedPreferences = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.putInt("selectedDepartment", 0)
+        editor.putInt("selectedDepartmentRadioButton", 0)
+        editor.putString("selectedDepartmentName", "")
+        editor.apply()
+        updateDepartmentID()
+        getArts(true)
+    }
+
+    fun updateResultText() {
+
+        val r = resultAmount.value
+
+        if (initialBatchLoaded.value != true) {
+            _resultText.value = context.getString(R.string.searching)
+            _displayNotFound.value = View.GONE
+            return
+        } else if (r == 1) {
+            _resultText.value = "$r ${context.getString(R.string.result)}"
+            _displayNotFound.value = View.GONE
+        } else if (r != null) {
+            if (r > 1) {
+                _resultText.value = "$r ${context.getString(R.string.results)}"
+                _displayNotFound.value = View.GONE
+            } else {
+                _resultText.value = context.getString(R.string.no_result)
+                _displayNotFound.value = View.VISIBLE
+            }
+        }
+    }
+
+
+    private fun updateDepartmentName() {
+        val pref: SharedPreferences = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
+        _departmentText.value = pref.getString("selectedDepartmentName", "")
     }
 
     /**
@@ -108,7 +201,7 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
 
             val art = service.getObjectByID(objectID)
 
-            if (art.primaryImage.isNotEmpty() && art.primaryImageSmall.isNotEmpty()) {
+            if (isValidArt(art)) {
                 _artsList.value = _artsList.value.orEmpty() + art
                 return true
             } else {
@@ -127,22 +220,13 @@ class ApiServiceViewModel: ViewModel(), SearchView.OnQueryTextListener {
     }
 
     /**
-     * Returns all the found departments.
+     * True if contains the wanted data.
      */
- /*   fun getDepartments() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = service.getDepartments()
-            Log.d("getDepartments", "fetch ended $response")
-        }
-    }*/
-
-    override fun onQueryTextSubmit(p0: String?): Boolean {
-        searchInput.value = p0
-        return true
+    private fun isValidArt(art: Artwork): Boolean {
+        return art.primaryImage.isNotEmpty() &&
+                art.primaryImageSmall.isNotEmpty()
     }
 
-    override fun onQueryTextChange(p0: String?): Boolean {
-        searchInput.value = p0
-        return true
-    }
+
+
 }

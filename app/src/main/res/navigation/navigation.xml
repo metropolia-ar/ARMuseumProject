@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/arSelectionFragment"
-        android:name="com.marsu.armuseumproject.ArSelection"
+        android:name="com.marsu.armuseumproject.fragments.ArSelection"
         android:label="fragment_ar_selection"
         tools:layout="@layout/fragment_ar_selection">
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <activity
         android:id="@+id/arActivity"
-        android:name="com.marsu.armuseumproject.ArActivity"
+        android:name="com.marsu.armuseumproject.activities.ArActivity"
         android:label="activity_ar"
         tools:layout="@layout/activity_ar" >
         <argument
@@ -44,7 +44,18 @@
     <fragment
         android:id="@+id/APIServiceFragment"
         android:name="com.marsu.armuseumproject.fragments.APIServiceFragment"
-        android:label="APIServiceFragment" />
+        android:label="APIServiceFragment" >
+        <action
+            android:id="@+id/action_APIServiceFragment_to_artInfoFragment2"
+            app:destination="@id/artInfoFragment" />
+        <action
+            android:id="@+id/action_APIServiceFragment_to_selectDepartmentActivity"
+            app:destination="@id/selectDepartmentActivity"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
     <fragment
         android:id="@+id/selectFromGalleryFragment"
         android:name="com.marsu.armuseumproject.fragments.SelectFromGallery"
@@ -53,5 +64,24 @@
             android:id="@+id/action_selectFromGallery_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/artInfoFragment"
+        android:name="com.marsu.armuseumproject.fragments.ArtInfoFragment"
+        android:label="ArtInfoFragment" >
+        <action
+            android:id="@+id/action_artInfoFragment_to_APIServiceFragment"
+            app:destination="@id/APIServiceFragment" />
+        <action
+            android:id="@+id/action_artInfoFragment_to_arActivity"
+            app:destination="@id/arActivity" />
+        <argument
+            android:name="art"
+            app:argType="com.marsu.armuseumproject.database.Artwork" />
+    </fragment>
+    <activity
+        android:id="@+id/selectDepartmentActivity"
+        android:name="com.marsu.armuseumproject.activities.SelectDepartmentActivity"
+        android:label="activity_select_department"
+        tools:layout="@layout/activity_select_department" />
 
 </navigation>
