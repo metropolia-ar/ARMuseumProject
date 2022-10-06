@@ -11,13 +11,14 @@ import androidx.core.net.toUri
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.marsu.armuseumproject.adapters.ApiServiceAdapter
+import com.marsu.armuseumproject.adapters.ArSelectionAdapter
 import com.marsu.armuseumproject.databinding.FragmentArSelectionBinding
 import com.marsu.armuseumproject.viewmodels.ArSelectionViewModel
 
 class ArSelection : Fragment() {
 
     private lateinit var arSelectionViewModel: ArSelectionViewModel
-    private lateinit var adapter: ApiServiceAdapter
+    private lateinit var adapter: ArSelectionAdapter
     private lateinit var layoutManager : LinearLayoutManager
     private var _binding: FragmentArSelectionBinding? = null;
     private val binding get() = _binding!!
@@ -37,7 +38,7 @@ class ArSelection : Fragment() {
 
         binding.startArButton.setOnClickListener { navigateToArActivity(view) }
 
-        adapter = ApiServiceAdapter()
+        adapter = ArSelectionAdapter()
         adapter.setHasStableIds(true)
         layoutManager = LinearLayoutManager(activity)
         adapter.onItemClick = { artwork ->
