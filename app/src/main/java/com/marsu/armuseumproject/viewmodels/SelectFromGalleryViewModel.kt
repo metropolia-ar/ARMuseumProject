@@ -7,8 +7,8 @@ import com.marsu.armuseumproject.database.ArtDB
 import com.marsu.armuseumproject.database.Artwork
 import kotlinx.coroutines.launch
 
-class SelectFromGalleryViewModel : ViewModel() {
-    private val database = ArtDB.get(MyApp.appContext)
+open class SelectFromGalleryViewModel : ViewModel() {
+    protected val database = ArtDB.get(MyApp.appContext)
 
     fun insertImage(artwork: Artwork) {
         viewModelScope.launch { database.artDao().addArtwork(artwork) }

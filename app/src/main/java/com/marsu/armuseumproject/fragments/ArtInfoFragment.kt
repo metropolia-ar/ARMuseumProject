@@ -9,12 +9,16 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.databinding.FragmentArtInfoBinding
+import com.marsu.armuseumproject.service.InternalStorageService
+import com.marsu.armuseumproject.viewmodels.ArtInfoViewModel
 import com.squareup.picasso.Picasso
 
 
 class ArtInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentArtInfoBinding
+    private lateinit var viewModel: ArtInfoViewModel
+
     private val args: ArtInfoFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -22,12 +26,18 @@ class ArtInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        viewModel = ArtInfoViewModel(args.art, requireContext())
+
         binding = FragmentArtInfoBinding.inflate(inflater)
-        binding.art = args.art
+        binding.artInfoViewModel = viewModel
+
+        binding.artInfoSaveImage.setOnClickListener {
+            viewModel.insertImage()
+        }
 
         try {
             Picasso.get()
-                .load(binding.art?.primaryImageSmall)
+                .load(viewModel.art.primaryImageSmall)
                 .fit()
                 .centerCrop()
                 .error(R.drawable.ic_not_found_vector)
