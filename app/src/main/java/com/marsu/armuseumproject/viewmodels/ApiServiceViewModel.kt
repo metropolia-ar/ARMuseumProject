@@ -52,10 +52,6 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
     val resultAmount : LiveData<Int>
         get() = _resultAmount
 
-    private val _displayNotFound = MutableLiveData(View.GONE)
-    val displayNotFound : LiveData<Int>
-        get() = _displayNotFound
-
     val paginationAmount = 10
 
     /**
@@ -164,18 +160,14 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
 
         if (initialBatchLoaded.value != true) {
             _resultText.value = context.getString(R.string.searching)
-            _displayNotFound.value = View.GONE
             return
         } else if (r == 1) {
             _resultText.value = "$r ${context.getString(R.string.result)}"
-            _displayNotFound.value = View.GONE
         } else if (r != null) {
             if (r > 1) {
                 _resultText.value = "$r ${context.getString(R.string.results)}"
-                _displayNotFound.value = View.GONE
             } else {
                 _resultText.value = context.getString(R.string.no_result)
-                _displayNotFound.value = View.VISIBLE
             }
         }
     }

@@ -84,12 +84,6 @@ class APIServiceFragment : Fragment() {
             }
         }
 
-        apiServiceViewModel.displayNotFound.observe(viewLifecycleOwner) {
-            it.let {
-                binding.notFoundContainer.visibility = it
-            }
-        }
-
         apiServiceViewModel.departmentId.observe(viewLifecycleOwner) {
             it.let {
                 if (it == 0) {

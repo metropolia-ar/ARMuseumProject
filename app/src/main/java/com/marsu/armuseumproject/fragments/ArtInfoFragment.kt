@@ -14,6 +14,9 @@ import com.marsu.armuseumproject.viewmodels.ArtInfoViewModel
 import com.squareup.picasso.Picasso
 
 
+/**
+ * View single Artwork objects found from the API. Contains functionality to save the image to the internal storage and Room DB.
+ */
 class ArtInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentArtInfoBinding
@@ -24,15 +27,20 @@ class ArtInfoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         viewModel = ArtInfoViewModel(args.art, requireContext())
 
         binding = FragmentArtInfoBinding.inflate(inflater)
         binding.artInfoViewModel = viewModel
+        binding.lifecycleOwner = this
 
-        binding.artInfoSaveImage.setOnClickListener {
-            viewModel.insertImage()
+        binding.artInfoSaveImage.setOnClickListener { viewModel.insertImage() }
+
+        viewModel.saveSuccess.observe(viewLifecycleOwner) {
+            it.let {
+                binding.artInfoSaveImage.isEnabled = !it
+            }
         }
 
         try {
@@ -46,7 +54,6 @@ class ArtInfoFragment : Fragment() {
         } catch (e: Exception) {
             Log.d("Exception when loading image", e.message.toString())
         }
-
 
         return binding.root
     }

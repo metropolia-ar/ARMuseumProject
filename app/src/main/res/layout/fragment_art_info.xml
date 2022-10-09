@@ -68,24 +68,11 @@
             android:id="@+id/art_info_save_image"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="@string/save_image"
-            app:layout_constraintBaseline_toBaselineOf="@+id/art_info_open_ar_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/art_info_open_ar_button" />
-
-        <Button
-            android:id="@+id/art_info_open_ar_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/start_ar"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@={artInfoViewModel.savedText}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/art_info_save_image"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline3" />
