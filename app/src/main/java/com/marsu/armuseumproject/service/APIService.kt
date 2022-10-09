@@ -13,19 +13,10 @@ import java.util.*
 
 object APIService {
 
-    data class Department(val departmentId: Int, val displayName: String)
-    data class Departments(val departments: List<Department>)
     data class SearchResult(val total: String, val objectIDs: MutableList<Int>)
-
     private val baseURL = URL("https://collectionapi.metmuseum.org/public/collection/v1/")
 
     interface Service {
-
-        /**
-         * Returns all the available object (art) ids as List<Int>.
-         */
-        @GET("objects")
-        suspend fun getObjectIDs() : List<Int>
 
         /**
          * Returns art data according to the given id.
@@ -34,15 +25,6 @@ object APIService {
         suspend fun getObjectByID(
             @Path(value = "objectID") objectID : Int
         ): Artwork
-
-        /**
-         * Returns all department ids and names.
-         */
-        @GET("departments")
-        suspend fun getDepartments(): Departments
-
-        @GET("departments")
-        suspend fun getDepartmentArts()
 
         /**
          * Returns paintings according to the given query parameter.

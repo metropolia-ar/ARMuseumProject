@@ -29,9 +29,9 @@ import java.util.*
 /**
  * Provides service for storing images to the internal storage and Room DB.
  */
-class InternalStorageService(val context: Context) {
+object InternalStorageService {
 
-    private val dir = context.filesDir.absolutePath
+    private val dir = MyApp.appContext.filesDir.absolutePath
     private val database = ArtDB.get(MyApp.appContext)
 
     /**
@@ -45,7 +45,7 @@ class InternalStorageService(val context: Context) {
     fun saveFileToInternalStorage(location: Uri) {
 
         val entryId = UUID.randomUUID().hashCode() * -1
-        val contentResolver = context.contentResolver
+        val contentResolver = MyApp.appContext.contentResolver
         val newFile = File(dir, "$entryId")
 
         var inputStream: InputStream? = null

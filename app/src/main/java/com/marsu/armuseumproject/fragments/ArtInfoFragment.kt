@@ -29,7 +29,7 @@ class ArtInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        viewModel = ArtInfoViewModel(args.art, requireContext())
+        viewModel = ArtInfoViewModel(args.art)
 
         binding = FragmentArtInfoBinding.inflate(inflater)
         binding.artInfoViewModel = viewModel

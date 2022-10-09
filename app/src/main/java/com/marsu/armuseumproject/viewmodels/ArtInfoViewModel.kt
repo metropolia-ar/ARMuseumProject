@@ -29,23 +29,22 @@ import java.net.URL
 /**
  * ViewModel for ArtInfoFragment. Provides functionality for adding API images to Room and internal storage.
  */
-class ArtInfoViewModel(val art: Artwork, val context: Context): ViewModel() {
+class ArtInfoViewModel(val art: Artwork): ViewModel() {
 
-    private val internalStorageService = InternalStorageService(context)
     val saveSuccess = MutableLiveData(false)
-    val savedText = MutableLiveData(context.getString(R.string.save_image))
+    val savedText = MutableLiveData(MyApp.appContext.getString(R.string.save_image))
 
     /**
      * Saves the image to the internal storage and Room DB and set indicators for the UI.
      */
     fun insertImage() {
         viewModelScope.launch {
-            saveSuccess.value = internalStorageService.saveApiArtWorkToRoom(art)
+            saveSuccess.value = InternalStorageService.saveApiArtWorkToRoom(art)
             if (saveSuccess.value == true) {
-                savedText.value = context.getString(R.string.saved)
-                Toast.makeText(context, "${context.getString(R.string.saved)}.", Toast.LENGTH_SHORT).show()
+                savedText.value = MyApp.appContext.getString(R.string.saved)
+                Toast.makeText(MyApp.appContext, "${MyApp.appContext.getString(R.string.saved)}.", Toast.LENGTH_SHORT).show()
             }
-            else savedText.value = context.getString(R.string.save_image)
+            else savedText.value = MyApp.appContext.getString(R.string.save_image)
         }
     }
 }
