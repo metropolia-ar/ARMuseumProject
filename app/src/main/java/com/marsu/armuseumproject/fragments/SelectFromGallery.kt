@@ -1,40 +1,25 @@
 package com.marsu.armuseumproject.fragments
 
-import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.text.Editable
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.webkit.MimeTypeMap
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.net.toUri
-import androidx.navigation.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.marsu.armuseumproject.MyApp
 import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.SelectFromGalleryViewModel
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.databinding.FragmentSelectFromGalleryBinding
-import org.apache.commons.io.IOUtils
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
+import com.marsu.armuseumproject.service.InternalStorageService
 import java.util.*
 
 const val REQUEST_CODE = 200
@@ -96,10 +81,10 @@ class SelectFromGallery : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                saveFileToInternalStorage()
+                val newUri = InternalStorageService.saveFileToInternalStorage(resultUri)
                 insertToDatabase(
                     viewModel,
-                    imageUri,
+                    newUri,
                     titleEditText.text.toString(),
                     artistEditText.text.toString(),
                     departmentEditText.text.toString(),
@@ -124,39 +109,6 @@ class SelectFromGallery : Fragment() {
         startActivityForResult(intent, REQUEST_CODE)
     }
 
-    // Save photos into internal storage to have access to them always
-    // Null check done before function call, therefore non-null asserted calls (!!)
-    private fun saveFileToInternalStorage() {
-        val contentResolver = requireContext().contentResolver
-        val newFile = File(requireContext().filesDir.absolutePath, "$entryId")
-
-        var inputStream: InputStream? = null
-        val byteStream = ByteArrayOutputStream()
-        var fileOutputStream: FileOutputStream? = null
-        try {
-            inputStream = contentResolver.openInputStream(resultUri!!)
-            fileOutputStream = FileOutputStream(newFile)
-
-            IOUtils.copy(inputStream, byteStream)
-            val bytes = byteStream.toByteArray()
-
-            fileOutputStream.write(bytes)
-
-            imageUri = newFile.toUri()
-        } catch (e: Exception) {
-            Log.e("IMG_CREATE", "Failed to copy image from gallery", e)
-
-            inputStream?.close()
-            fileOutputStream?.close()
-            byteStream.close()
-
-            return
-        } finally {
-            inputStream?.close()
-            fileOutputStream?.close()
-            byteStream.close()
-        }
-    }
 
     private fun insertToDatabase(
         viewModel: SelectFromGalleryViewModel,

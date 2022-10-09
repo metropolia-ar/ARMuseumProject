@@ -37,12 +37,15 @@ object InternalStorageService {
     /**
      * Adds the given Artwork object to the Room DB.
      */
-    private suspend fun insertImage(artwork: Artwork) = database.artDao().addArtwork(artwork)
+    suspend fun insertImage(artwork: Artwork) = database.artDao().addArtwork(artwork)
 
     /**
-     * Copies an image from the gallery to the internal storage.
+     * Copies an image from the gallery to the internal storage. Returns the images location in the internal storage.
      */
-    fun saveFileToInternalStorage(location: Uri) {
+    fun saveFileToInternalStorage(location: Uri?): Uri {
+
+        var imageUri = "".toUri()
+        if (location == null) return imageUri
 
         val entryId = UUID.randomUUID().hashCode() * -1
         val contentResolver = MyApp.appContext.contentResolver
@@ -56,27 +59,24 @@ object InternalStorageService {
 
             inputStream = contentResolver.openInputStream(location)
             fileOutputStream = FileOutputStream(newFile)
-
             IOUtils.copy(inputStream, byteStream)
             val bytes = byteStream.toByteArray()
 
             fileOutputStream.write(bytes)
+            imageUri = newFile.toUri()
 
-            val imageUri = newFile.toUri()
         } catch (e: Exception) {
             Log.e("IMG_CREATE", "Failed to copy image", e)
-
             inputStream?.close()
             fileOutputStream?.close()
             byteStream.close()
-
-            return
         } finally {
             inputStream?.close()
             fileOutputStream?.close()
             byteStream.close()
             Log.d("Saved image to Internal storage", "success")
         }
+        return imageUri
     }
 
     /**
