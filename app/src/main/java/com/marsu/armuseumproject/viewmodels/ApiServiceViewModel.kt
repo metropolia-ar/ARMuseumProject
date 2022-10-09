@@ -5,9 +5,11 @@ import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.marsu.armuseumproject.MyApp
 import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.service.APIService
@@ -80,7 +82,6 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
         }
     }
 
-    // TODO: Update ApiServiceFragment when closing SelectDepActivity and (search again) when departmentId has changed
     fun updateDepartmentID() {
         val pref: SharedPreferences = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
         val newDep = pref.getInt("selectedDepartment", 0)
@@ -135,7 +136,9 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
 
     fun searchArtsWithInput() {
         if (searchInput.value?.isEmpty() == true) {
-            // TODO: Optional validators for the search input, i.e. has to be more than 3 characters etc.
+            return
+        } else if (searchInput.value != null && searchInput.value?.length!! < 2) {
+            Toast.makeText(MyApp.appContext, "${MyApp.appContext.getString(R.string.search_too_short)}.", Toast.LENGTH_SHORT).show()
             return
         }
         _artsList.value = mutableListOf()

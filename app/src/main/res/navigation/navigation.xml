@@ -68,15 +68,21 @@
         android:id="@+id/artInfoFragment"
         android:name="com.marsu.armuseumproject.fragments.ArtInfoFragment"
         android:label="ArtInfoFragment" >
+        <argument
+            android:name="art"
+            app:argType="com.marsu.armuseumproject.database.Artwork" />
         <action
             android:id="@+id/action_artInfoFragment_to_APIServiceFragment"
             app:destination="@id/APIServiceFragment" />
         <action
-            android:id="@+id/action_artInfoFragment_to_arActivity"
-            app:destination="@id/arActivity" />
-        <argument
-            android:name="art"
-            app:argType="com.marsu.armuseumproject.database.Artwork" />
+            android:id="@+id/action_artInfoFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_artInfoFragment_to_arSelectionFragment"
+            app:destination="@id/arSelectionFragment" />
+        <action
+            android:id="@+id/action_artInfoFragment_to_selectFromGalleryFragment"
+            app:destination="@id/selectFromGalleryFragment" />
     </fragment>
     <activity
         android:id="@+id/selectDepartmentActivity"
