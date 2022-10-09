@@ -49,4 +49,5 @@
     <string name="online_artwork">Taideteokset netissä</string>
     <string name="chosen_artwork">Valittu taideteos:</string>
     <string name="none">Ei mitään</string>
+    <string name="home_intro">Kokeile miltä taulut näyttäisivät omalla seinälläsi.</string>
 </resources>
