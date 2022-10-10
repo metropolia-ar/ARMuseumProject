@@ -5,12 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marsu.armuseumproject.database.ArtDB
 import com.marsu.armuseumproject.database.Artwork
+import com.marsu.armuseumproject.service.InternalStorageService
 import kotlinx.coroutines.launch
 
-class SelectFromGalleryViewModel : ViewModel() {
-    private val database = ArtDB.get(MyApp.appContext)
+open class SelectFromGalleryViewModel : ViewModel() {
 
     fun insertImage(artwork: Artwork) {
-        viewModelScope.launch { database.artDao().addArtwork(artwork) }
+        viewModelScope.launch { InternalStorageService.insertImage(artwork) }
     }
 }

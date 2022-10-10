@@ -9,25 +9,43 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.databinding.FragmentArtInfoBinding
+import com.marsu.armuseumproject.service.InternalStorageService
+import com.marsu.armuseumproject.viewmodels.ArtInfoViewModel
 import com.squareup.picasso.Picasso
 
 
+/**
+ * View single Artwork objects found from the API. Contains functionality to save the image to the internal storage and Room DB.
+ */
 class ArtInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentArtInfoBinding
+    private lateinit var viewModel: ArtInfoViewModel
+
     private val args: ArtInfoFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+
+        viewModel = ArtInfoViewModel(args.art)
 
         binding = FragmentArtInfoBinding.inflate(inflater)
-        binding.art = args.art
+        binding.artInfoViewModel = viewModel
+        binding.lifecycleOwner = this
+
+        binding.artInfoSaveImage.setOnClickListener { viewModel.insertImage() }
+
+        viewModel.saveSuccess.observe(viewLifecycleOwner) {
+            it.let {
+                binding.artInfoSaveImage.isEnabled = !it
+            }
+        }
 
         try {
             Picasso.get()
-                .load(binding.art?.primaryImageSmall)
+                .load(viewModel.art.primaryImageSmall)
                 .fit()
                 .centerCrop()
                 .error(R.drawable.ic_not_found_vector)
@@ -36,7 +54,6 @@ class ArtInfoFragment : Fragment() {
         } catch (e: Exception) {
             Log.d("Exception when loading image", e.message.toString())
         }
-
 
         return binding.root
     }

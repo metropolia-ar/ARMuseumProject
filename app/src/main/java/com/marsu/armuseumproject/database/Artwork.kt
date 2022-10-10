@@ -11,8 +11,8 @@ import kotlinx.android.parcel.Parcelize
 data class Artwork(
     @PrimaryKey(autoGenerate = false)
     val objectID: Int,
-    val primaryImage: String,
-    val primaryImageSmall: String,
+    var primaryImage: String,
+    var primaryImageSmall: String,
     val department: String,
     val title: String,
     val artistDisplayName: String,

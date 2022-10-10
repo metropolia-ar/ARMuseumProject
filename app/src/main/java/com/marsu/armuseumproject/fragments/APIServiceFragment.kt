@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,10 +61,18 @@ class APIServiceFragment : Fragment() {
         // Search button
         binding.searchButton.setOnClickListener {
             apiServiceViewModel.searchArtsWithInput()
-            val kb = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            kb.hideSoftInputFromWindow(view?.windowToken, 0)
+            closeKeyboard()
         }
 
+        // Enter key
+        binding.apiSearchInput.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                apiServiceViewModel.searchArtsWithInput()
+                closeKeyboard()
+                return@OnKeyListener true
+            }
+            false
+        })
 
 
         // Department settings
@@ -81,12 +90,6 @@ class APIServiceFragment : Fragment() {
         apiServiceViewModel.artsList.observe(viewLifecycleOwner) { arts ->
             arts.let {
                 adapter.setData(it)
-            }
-        }
-
-        apiServiceViewModel.displayNotFound.observe(viewLifecycleOwner) {
-            it.let {
-                binding.notFoundContainer.visibility = it
             }
         }
 
@@ -138,6 +141,10 @@ class APIServiceFragment : Fragment() {
         return binding.root
     }
 
+    private fun closeKeyboard() {
+        val kb = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        kb.hideSoftInputFromWindow(view?.windowToken, 0)
+    }
 
     override fun onResume() {
         super.onResume()
