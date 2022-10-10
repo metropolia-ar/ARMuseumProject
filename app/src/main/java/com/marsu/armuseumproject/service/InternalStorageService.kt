@@ -124,7 +124,7 @@ object InternalStorageService {
      */
     suspend fun saveApiArtWorkToRoom(art: Artwork): Boolean {
 
-        val asd = CoroutineScope(Dispatchers.IO).async {
+        val saveArtwork = CoroutineScope(Dispatchers.IO).async {
             try {
                 val newDir = saveFileToInternalStorage(URL(art.primaryImageSmall))
                 val newArt = art.copy()
@@ -138,7 +138,7 @@ object InternalStorageService {
                 false
             }
         }
-        return asd.await()
+        return saveArtwork.await()
     }
 
 }
