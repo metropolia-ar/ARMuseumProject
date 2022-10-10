@@ -14,7 +14,6 @@ import com.marsu.armuseumproject.R
 open class PopupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_popup)
 
         supportActionBar?.hide()
 
