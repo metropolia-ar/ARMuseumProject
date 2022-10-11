@@ -18,6 +18,8 @@
     <string name="search_arts">Search art..</string>
     <string name="filter">Filter</string>
     <string name="not_found_text">It is really quiet in here..</string>
+    <string name="saved">Image saved</string>
+    <string name="search_too_short">Search must contain at least 2 characters</string>
 
     <string name="dep1">American Decorative Arts</string>
     <string name="dep3">Ancient Near Eastern Art</string>

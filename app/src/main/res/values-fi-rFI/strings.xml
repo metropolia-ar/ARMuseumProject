@@ -19,6 +19,8 @@
     <string name="search_arts">Etsi teoksia..</string>
     <string name="filter">Rajaa</string>
     <string name="not_found_text">Onpa täällä hiljaista..</string>
+    <string name="saved">Kuva tallennettu</string>
+    <string name="search_too_short">Hakukentän täytyy sisältää vähintään 2 merkkiä</string>
 
     <string name="dep1">American Decorative Arts</string>
     <string name="dep3">Ancient Near Eastern Art</string>
