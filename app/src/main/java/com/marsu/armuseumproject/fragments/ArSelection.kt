@@ -30,7 +30,7 @@ class ArSelection : Fragment() {
     private var _binding: FragmentArSelectionBinding? = null;
     private val binding get() = _binding!!
     private var lastFive = mutableListOf<Int>() // initiate variable
-    
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +44,7 @@ class ArSelection : Fragment() {
         _binding = FragmentArSelectionBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        // Retrieving the previously stored list of id's to use it as a base
         val sharedPreferences = activity?.getPreferences(Context.MODE_PRIVATE)
         val json = sharedPreferences?.getString(SHARED_KEY, null)
         val type: Type = object : TypeToken<List<Int>>() {}.type
