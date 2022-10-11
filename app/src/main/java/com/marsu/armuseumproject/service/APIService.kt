@@ -1,6 +1,5 @@
 package com.marsu.armuseumproject.service
 
-import com.google.gson.annotations.SerializedName
 import com.marsu.armuseumproject.database.Artwork
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -8,9 +7,12 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import java.net.URL
-import java.util.*
 
 
+/**
+ * Provides a Service, which contains the functionality for making queries to the API.
+ * @see <a href="https://metmuseum.github.io/">The Metropolitan Museum of Art Collection API</a>
+ */
 object APIService {
 
     data class SearchResult(val total: String, val objectIDs: MutableList<Int>)
@@ -19,7 +21,8 @@ object APIService {
     interface Service {
 
         /**
-         * Returns art data according to the given id.
+         * Fetches Artwork data according to the give objectID.
+         * @return Artwork object
          */
         @GET("objects/{objectID}")
         suspend fun getObjectByID(
@@ -27,7 +30,8 @@ object APIService {
         ): Artwork
 
         /**
-         * Returns paintings according to the given query parameter.
+         * Fetches ids which contain a valid image URL, is public and is a painting.
+         * @return SearchResult object. Contains a list of Artwork ids.
          */
         @GET("search?")
         suspend fun getArtIDs(
@@ -38,7 +42,8 @@ object APIService {
         ): SearchResult
 
         /**
-         * Returns paintings according to the given query parameter and departmentId.
+         * Fetches ids which contain a valid image URL, is public, is a painting and contains the wanted departmentId.
+         * @return SearchResult object. Contains a list of Artwork ids.
          */
         @GET("search?")
         suspend fun getArtIDs(

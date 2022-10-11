@@ -12,6 +12,10 @@ import com.marsu.armuseumproject.databinding.ArtListItemBinding
 import com.marsu.armuseumproject.fragments.APIServiceFragmentDirections
 import com.squareup.picasso.Picasso
 
+/**
+ * Serves as a Adapter for the RecyclerView used in the ApiServiceFragment. Displays the artwork's name, artist's name and a minimal
+ * image of the Artwork. Clicking on the item opens up the ArtInfoActivity popup.
+ */
 class ApiServiceAdapter: RecyclerView.Adapter<ApiServiceAdapter.ApiServiceViewHolder>() {
 
     private var artList: List<Artwork> = emptyList()

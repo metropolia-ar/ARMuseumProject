@@ -6,10 +6,9 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.marsu.armuseumproject.R
 
 /**
- * Superclass for popups. Handles the creation of a popup activity. Check SelectDepartmentActivity for an example usage.
+ * Superclass for popups. Handles the creation of a popup activity. Check SelectDepartmentActivity or ArtInfoActivity for example usages.
  */
 open class PopupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

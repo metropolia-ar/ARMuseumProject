@@ -37,10 +37,13 @@ object InternalStorageService {
     /**
      * Adds the given Artwork object to the Room DB.
      */
-    suspend fun insertImage(artwork: Artwork) = database.artDao().addArtwork(artwork)
+    suspend fun insertImage(artwork: Artwork) {
+        database.artDao().addArtwork(artwork)
+    }
 
     /**
-     * Copies an image from the gallery to the internal storage. Returns the images location in the internal storage.
+     * Copies an image from the gallery to the internal storage.
+     * @return image location in the internal storage.
      */
     fun saveFileToInternalStorage(location: Uri?): Uri {
 

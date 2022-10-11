@@ -1,19 +1,14 @@
 package com.marsu.armuseumproject.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.RadioButton
-import android.widget.RadioGroup
-import androidx.compose.ui.res.stringResource
-import androidx.core.view.children
-import com.gorisse.thomas.sceneform.util.getResourceUri
-import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.databinding.ActivitySelectDepartmentBinding
-import com.marsu.armuseumproject.service.APIService
 import com.marsu.armuseumproject.viewmodels.SelectDepartmentViewModel
 
+/**
+ * Displays a popup window which enables the user to select a Department to filter out the found Artworks from the API.
+ */
 class SelectDepartmentActivity : PopupActivity() {
 
     private lateinit var selectDepartmentViewModel: SelectDepartmentViewModel

@@ -8,6 +8,9 @@ import com.marsu.armuseumproject.databinding.ActivityArtInfoBinding
 import com.marsu.armuseumproject.viewmodels.ArtInfoViewModel
 import com.squareup.picasso.Picasso
 
+/**
+ * Displays a popup window with basic information of the Artwork and contains functionality for saving the Artwork to Room DB.
+ */
 class ArtInfoActivity: PopupActivity() {
 
     private lateinit var binding: ActivityArtInfoBinding

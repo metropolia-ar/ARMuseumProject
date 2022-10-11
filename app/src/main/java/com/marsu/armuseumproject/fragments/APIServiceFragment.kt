@@ -18,7 +18,8 @@ import com.marsu.armuseumproject.databinding.FragmentApiServiceBinding
 import com.marsu.armuseumproject.viewmodels.ApiServiceViewModel
 
 /**
- * Contains a EditText and RecyclerView for fetching and displaying found artwork from the API.
+ * Contains an EditText and RecyclerView for fetching and displaying found artwork from the API, as well as a button for opening up
+ * the SelectDepartmentActivity for filtering the found Artwork objects.
  */
 class APIServiceFragment : Fragment() {
 
