@@ -29,10 +29,8 @@ class ArSelection : Fragment() {
     private lateinit var layoutManager: LinearLayoutManager
     private var _binding: FragmentArSelectionBinding? = null;
     private val binding get() = _binding!!
-
     private var lastFive = mutableListOf<Int>() // initiate variable
-
-
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,33 +58,8 @@ class ArSelection : Fragment() {
         layoutManager = LinearLayoutManager(activity)
         adapter.onItemClick = { artwork ->
 
-
-            if (!lastFive.contains(artwork.objectID) || lastFive.isEmpty()) {
-                lastFive.add(
-                    0,
-                    artwork.objectID
-                ) // add the newest to the first element of list, previous ones get pushed one more forward
-            } else {
-                val index = lastFive.indexOf(artwork.objectID)
-                lastFive.drop(index)
-                lastFive.add(
-                    0,
-                    artwork.objectID
-                ) // add the newest only after dropping out the very same id or int from the list
-            }
-
-            if (lastFive.size > 5) {
-                lastFive.removeLast() // keeps only 5 most recent in the list
-            }
-
-            val storedLastFive = Gson().toJson(lastFive) // convert list to storable json
-            val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
-            if (sharedPref != null) {
-                with(sharedPref.edit()) {
-                    putString(SHARED_KEY, storedLastFive)
-                    apply()
-                }
-            }
+            addToList(artwork.objectID)
+            addToSharedPrefs()
 
             binding.chosenTitle.text = artwork.title
             binding.chosenArtist.text = artwork.artistDisplayName
@@ -110,7 +83,6 @@ class ArSelection : Fragment() {
         return view
     }
 
-
     // Enable 'Start AR' button once an image has been selected
     private fun enableStartButton(value: Uri?) {
         if (value != null) {
@@ -122,6 +94,33 @@ class ArSelection : Fragment() {
         val uri = arSelectionViewModel.imageUri.value.toString()
         val action = ArSelectionDirections.actionArSelectionToArActivity(uri)
         v.findNavController().navigate(action)
+    }
+
+    // Adds id of selected Artwork to a list
+    private fun addToList(id: Int) {
+        if (lastFive.contains(id)) {
+            val index = lastFive.indexOf(id)
+            lastFive.removeAt(index)
+        }
+
+        lastFive.add(0, id)
+
+        // Keeps only 5 most recent in the list
+        if (lastFive.size > 5) {
+            lastFive.removeLast()
+        }
+    }
+
+    // Converts lastFive (list of Artwork id's) to a json and stores to shared preferences
+    private fun addToSharedPrefs() {
+        val storedLastFive = Gson().toJson(lastFive)
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+        if (sharedPref != null) {
+            with(sharedPref.edit()) {
+                putString(SHARED_KEY, storedLastFive)
+                apply()
+            }
+        }
     }
 
 }
