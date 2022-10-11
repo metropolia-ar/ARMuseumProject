@@ -24,7 +24,7 @@ open class PopupActivity : AppCompatActivity() {
 
         window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
         window.attributes.dimAmount = 0.7f
-        window.setLayout((width * .8).toInt(), (height * 0.6).toInt())
+        window.setLayout((width * .9).toInt(), (height * 0.8).toInt())
         window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 }
