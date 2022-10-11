@@ -1,43 +1,36 @@
-package com.marsu.armuseumproject.fragments
+package com.marsu.armuseumproject.activities
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.navigation.fragment.navArgs
+import androidx.navigation.navArgs
 import com.marsu.armuseumproject.R
-import com.marsu.armuseumproject.databinding.FragmentArtInfoBinding
-import com.marsu.armuseumproject.service.InternalStorageService
+import com.marsu.armuseumproject.databinding.ActivityArtInfoBinding
 import com.marsu.armuseumproject.viewmodels.ArtInfoViewModel
 import com.squareup.picasso.Picasso
 
-
 /**
- * View single Artwork objects found from the API. Contains functionality to save the image to the internal storage and Room DB.
+ * Displays a popup window with basic information of the Artwork and contains functionality for saving the Artwork to Room DB.
  */
-class ArtInfoFragment : Fragment() {
+class ArtInfoActivity: PopupActivity() {
 
-    private lateinit var binding: FragmentArtInfoBinding
+    private lateinit var binding: ActivityArtInfoBinding
     private lateinit var viewModel: ArtInfoViewModel
+    private val args: ArtInfoActivityArgs by navArgs()
 
-    private val args: ArtInfoFragmentArgs by navArgs()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         viewModel = ArtInfoViewModel(args.art)
+        binding = ActivityArtInfoBinding.inflate(layoutInflater)
 
-        binding = FragmentArtInfoBinding.inflate(inflater)
+        setContentView(binding.root)
         binding.artInfoViewModel = viewModel
         binding.lifecycleOwner = this
 
         binding.artInfoSaveImage.setOnClickListener { viewModel.insertImage() }
+        binding.artInfoBack.setOnClickListener { finish() }
 
-        viewModel.saveSuccess.observe(viewLifecycleOwner) {
+        viewModel.saveSuccess.observe(this) {
             it.let {
                 binding.artInfoSaveImage.isEnabled = !it
             }
@@ -54,8 +47,6 @@ class ArtInfoFragment : Fragment() {
         } catch (e: Exception) {
             Log.d("Exception when loading image", e.message.toString())
         }
-
-        return binding.root
     }
 
 }

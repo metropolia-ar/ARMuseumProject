@@ -3,7 +3,7 @@ package com.marsu.armuseumproject.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.os.SystemClock
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,15 +12,14 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.marsu.armuseumproject.R
-import com.marsu.armuseumproject.activities.PopupActivity
 import com.marsu.armuseumproject.activities.SelectDepartmentActivity
 import com.marsu.armuseumproject.adapters.ApiServiceAdapter
 import com.marsu.armuseumproject.databinding.FragmentApiServiceBinding
 import com.marsu.armuseumproject.viewmodels.ApiServiceViewModel
 
 /**
- * Contains a EditText and RecyclerView for fetching and displaying found artwork from the API.
+ * Contains an EditText and RecyclerView for fetching and displaying found artwork from the API, as well as a button for opening up
+ * the SelectDepartmentActivity for filtering the found Artwork objects.
  */
 class APIServiceFragment : Fragment() {
 
@@ -29,6 +28,7 @@ class APIServiceFragment : Fragment() {
     private lateinit var adapter: ApiServiceAdapter
     private lateinit var layoutManager : LinearLayoutManager
 
+    private var lastDepClick = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,8 +77,10 @@ class APIServiceFragment : Fragment() {
 
         // Department settings
         binding.openDepartmentSettings.setOnClickListener {
-            val intent = Intent(activity, SelectDepartmentActivity::class.java)
-            startActivity(intent)
+            preventButtonClickSpam {
+                val intent = Intent(activity, SelectDepartmentActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         // Clear button for department
@@ -149,5 +151,12 @@ class APIServiceFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         apiServiceViewModel.updateDepartmentID()
+    }
+
+    private fun preventButtonClickSpam(f: () -> Unit) {
+        if (SystemClock.elapsedRealtime() - lastDepClick > 1000) {
+            lastDepClick = SystemClock.elapsedRealtime()
+            f()
+        }
     }
 }

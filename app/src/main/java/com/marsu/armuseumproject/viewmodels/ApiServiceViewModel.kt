@@ -18,6 +18,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
+/**
+ * ViewModel class for ApiServiceFragment. Contains the data displayed within the Fragment.
+ */
 class ApiServiceViewModel(val context: Context): ViewModel() {
 
     private val initialBatchSize = 15
@@ -82,6 +85,10 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
         }
     }
 
+
+    /**
+     * Updates the departmentId and departmentText LiveData objects.
+     */
     fun updateDepartmentID() {
         val pref: SharedPreferences = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
         val newDep = pref.getInt("selectedDepartment", 0)
@@ -134,6 +141,10 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
         }
     }
 
+
+    /**
+     * Searches the API if the searchInput value is valid. searchInput must have at least a length of 2.
+     */
     fun searchArtsWithInput() {
         if (searchInput.value?.isEmpty() == true) {
             return
@@ -143,9 +154,12 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
         }
         _artsList.value = mutableListOf()
         getArts(true)
-        Log.d("SearchInput value", searchInput.value.toString())
     }
 
+
+    /**
+     * Resets the selected department data from SharedPreferences. Furthermore, updates the LiveData objects regarding the department info.
+      */
     fun resetSelectedDepartment() {
         val pref: SharedPreferences = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
         val editor = pref.edit()
@@ -157,6 +171,10 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
         getArts(true)
     }
 
+
+    /**
+     * Updates the resultText which displays the amount of found artworks from the API.
+     */
     fun updateResultText() {
 
         val r = resultAmount.value
@@ -176,13 +194,18 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
     }
 
 
+    /**
+     * Updates the departmentText LiveData object.
+     */
     private fun updateDepartmentName() {
         val pref: SharedPreferences = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
         _departmentText.value = pref.getString("selectedDepartmentName", "")
     }
 
+
     /**
      * Adds the found art to the list if it contains the required primary images. If it lacks images, the ID is removed from the list.
+     * @return the success status if the Artwork was added.
      */
     private suspend fun addArtIfImagesAreFound(): Boolean {
 
@@ -214,14 +237,13 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
         return false
     }
 
+
     /**
-     * True if contains the wanted data.
+     * Checks if the Artwork object is usable in the application.
+     * @return true if contains both primaryImage and primaryImageSmall.
      */
     private fun isValidArt(art: Artwork): Boolean {
         return art.primaryImage.isNotEmpty() &&
                 art.primaryImageSmall.isNotEmpty()
     }
-
-
-
 }
