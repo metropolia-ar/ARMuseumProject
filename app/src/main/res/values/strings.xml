@@ -4,7 +4,7 @@
     <string name="back">Back</string>
     <string name="select_photo">Select photo...</string>
     <string name="start_ar">Start AR</string>
-    <string name="add_artwork">Add artwork</string>
+    <string name="add_artwork">Add</string>
     <string name="open_api_service">Open APIService</string>
     <string name="open_selectFromGallery">Open SFG</string>
     <string name="pickImageToast">You have to pick image from gallery before saving it</string>
@@ -47,8 +47,10 @@
     <string name="department">Department</string>
     <string name="classification">Classification</string>
     <string name="home">Home</string>
-    <string name="online_artwork">Online artwork</string>
+    <string name="online_artwork">Museum</string>
     <string name="ar" translatable="false">AR</string>
     <string name="chosen_artwork">Chosen artwork:</string>
     <string name="none">None</string>
+    <string name="delete_current">Delete current artwork</string>
+    <string name="phone_rotation_warning">Please hold your phone upright!</string>
 </resources>
