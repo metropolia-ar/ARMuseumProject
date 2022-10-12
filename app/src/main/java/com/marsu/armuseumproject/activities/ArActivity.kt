@@ -118,7 +118,6 @@ class ArActivity : AppCompatActivity(), SensorEventListener {
                 currentImageNode.renderable = viewRenderable
                 currentImageNode.parent = intermediateNode
                 currentImageNode.localRotation = Quaternion.axisAngle(Vector3(-1f, 0f, 0f), 90f)
-                intermediateNode!!.select()
                 arActivityViewModel.currentImageNode.postValue(currentImageNode)
             }
         }
