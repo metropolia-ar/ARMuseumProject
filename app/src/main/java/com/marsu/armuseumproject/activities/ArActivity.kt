@@ -1,11 +1,18 @@
 package com.marsu.armuseumproject.activities
 
+import android.content.Context
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.navArgs
@@ -24,7 +31,7 @@ import com.marsu.armuseumproject.viewmodels.ArActivityViewModel
 const val MAX_IMAGE_HEIGHT = 300
 const val MAX_IMAGE_WIDTH = 300
 
-class ArActivity : AppCompatActivity() {
+class ArActivity : AppCompatActivity(), SensorEventListener {
 
     private lateinit var arFrag: ArFragment
     private lateinit var binding: ActivityArBinding
@@ -39,6 +46,10 @@ class ArActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityArBinding.inflate(layoutInflater)
         arActivityViewModel = ArActivityViewModel(application)
+        val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        val sensor: Sensor? = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY)
+        registerSensor(sensorManager, sensor)
+
         val view = binding.root
         setContentView(view)
 
@@ -46,6 +57,23 @@ class ArActivity : AppCompatActivity() {
         arActivityViewModel.currentImageNode.observe(this, Observer {
             binding.arDeleteButton.isEnabled = it != null
             arFrag.arSceneView.planeRenderer.isVisible = it == null
+        })
+
+        // Observe whether phone is held upright and enable/disable adding images accordingly
+        arActivityViewModel.isPhoneUpright.observe(this, Observer {
+            if (this::arFrag.isInitialized) {
+                if (it) {
+                    binding.arGravityAlert.isVisible = false
+                    if (arActivityViewModel.currentImageNode.value == null) {
+                        arFrag.arSceneView.planeRenderer.isVisible = true
+                    }
+                } else {
+                    if (arActivityViewModel.currentImageNode.value == null) {
+                        binding.arGravityAlert.isVisible = true
+                        arFrag.arSceneView.planeRenderer.isVisible = false
+                    }
+                }
+            }
         })
 
         val uri = args.imageUri.toUri()
@@ -96,11 +124,38 @@ class ArActivity : AppCompatActivity() {
         }
     }
 
+    // Delete image currently placed on the screen
     private fun deleteImage() {
         if (arActivityViewModel.currentImageNode.value != null && intermediateNode != null) {
             intermediateNode!!.removeChild(arActivityViewModel.currentImageNode.value)
             arActivityViewModel.currentImageNode.postValue(null)
             intermediateNode = null
         }
+    }
+
+    // Register gravity sensor
+    private fun registerSensor(sensorManager: SensorManager, sensor: Sensor?) {
+        if (sensor != null) {
+            sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL)
+            Log.d("SENSOR_GRAVITY", "Registered listener to sensor succesfully!")
+        } else {
+            Log.d("SENSOR_GRAVITY", "Failed to register listener to sensor!")
+        }
+    }
+
+    // When gravity sensor detects change, send data to viewModel to calculate if phone is upright
+    override fun onSensorChanged(p0: SensorEvent?) {
+        Log.d("ON_SENSOR_CHANGED", p0?.values.contentToString())
+        arActivityViewModel.calculateGravityData(
+            p0?.values?.get(0) ?: 0.0F,
+            p0?.values?.get(1) ?: 0.0F,
+            p0?.values?.get(2) ?: 0.0F
+        )
+    }
+
+    // Mandatory override for SensorEventListener
+    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+        Log.d("ON_ACCURACY_CHANGED_SENSOR", p0.toString())
+        Log.d("ON_ACCURACY_CHANGED_CHANGE", p1.toString())
     }
 }

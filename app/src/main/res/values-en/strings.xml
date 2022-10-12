@@ -52,4 +52,5 @@
     <string name="chosen_artwork">Chosen artwork:</string>
     <string name="none">None</string>
     <string name="delete_current">Delete current artwork</string>
+    <string name="phone_rotation_warning">Please hold your phone upright!</string>
 </resources>

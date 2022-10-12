@@ -52,4 +52,5 @@
     <string name="chosen_artwork">Valittu taideteos:</string>
     <string name="none">Ei mitään</string>
     <string name="delete_current">Poista nykyinen taideteos</string>
+    <string name="phone_rotation_warning">Pidä puhelintasi pystysuorassa!</string>
 </resources>
