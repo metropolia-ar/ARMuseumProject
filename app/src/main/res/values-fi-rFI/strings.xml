@@ -50,7 +50,8 @@
     <string name="online_artwork">Museo</string>
     <string name="chosen_artwork">Valittu taideteos:</string>
     <string name="none">Ei mitään</string>
-    <string name="home_intro">Viimeisimpänä katsotut taideteokset:</string>
+    <string name="home_intro">Aloita selaamalla museota tai lisäämällä oma taideteos.</string>
+    <string name="home_recent">Viimeisimpänä katsotut taideteokset:</string>
     <string name="welcome">Tervetuloa!</string>
     <string name="delete_current">Poista nykyinen taideteos</string>
     <string name="phone_rotation_warning">Pidä puhelintasi pystyasennossa!</string>

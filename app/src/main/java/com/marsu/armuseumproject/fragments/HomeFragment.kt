@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.adapters.HomeRecyclerAdapter
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.databinding.FragmentHomeBinding
@@ -47,6 +48,12 @@ class HomeFragment : Fragment() {
         val type: Type = object : TypeToken<List<Int>>() {}.type
         if (json != null) {
             lastFive = Gson().fromJson<MutableList<Int>>(json, type)
+        }
+
+        // Checking if lastFive has anything in it
+        // If not, showing instructions text instead of most recents.
+        if (lastFive.isEmpty()) {
+            binding.homeIntro.text = getString(R.string.home_intro)
         }
 
         // Getting the artwork objects by id's collected in lastFive and sending info to recycler adapter
