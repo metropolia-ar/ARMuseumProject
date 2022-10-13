@@ -3,8 +3,6 @@ package com.marsu.armuseumproject.viewmodels
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
-import android.view.View
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -58,6 +56,7 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
         get() = _resultAmount
 
     val paginationAmount = 10
+
 
     /**
      * Get Art ids and store them for later usage.

@@ -28,7 +28,6 @@ class ApiServiceAdapter: RecyclerView.Adapter<ApiServiceAdapter.ApiServiceViewHo
 
     override fun onBindViewHolder(holder: ApiServiceViewHolder, position: Int) {
 
-
         val art = artList[position]
         holder.binding.art = art
 

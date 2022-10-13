@@ -57,7 +57,6 @@ class APIServiceFragment : Fragment() {
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = layoutManager
 
-
         // Search button
         binding.searchButton.setOnClickListener {
             apiServiceViewModel.searchArtsWithInput()
@@ -73,7 +72,6 @@ class APIServiceFragment : Fragment() {
             }
             false
         })
-
 
         // Department settings
         binding.openDepartmentSettings.setOnClickListener {
@@ -137,8 +135,6 @@ class APIServiceFragment : Fragment() {
 
             }
         }
-
-
 
         return binding.root
     }

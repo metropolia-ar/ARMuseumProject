@@ -1,15 +1,11 @@
 package com.marsu.armuseumproject.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
-import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.databinding.ArtListItemBinding
-import com.squareup.picasso.Picasso
-import javax.inject.Inject
 
 class ArSelectionAdapter: RecyclerView.Adapter<ArSelectionAdapter.ArSelectionViewHolder>() {
 
@@ -22,7 +18,6 @@ class ArSelectionAdapter: RecyclerView.Adapter<ArSelectionAdapter.ArSelectionVie
     }
 
     override fun onBindViewHolder(holder: ArSelectionViewHolder, position: Int) {
-
 
         val art = artList[position]
         holder.binding.art = art
