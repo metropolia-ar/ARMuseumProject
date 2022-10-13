@@ -7,6 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.databinding.ArtListItemBinding
 
+/**
+ * Serves as a adapter for the RecyclingView used in the HomeFragment.
+ * Displays the artwork's name, artist's name and a minimal image of the Artwork.
+ */
 class HomeRecyclerAdapter : RecyclerView.Adapter<HomeRecyclerAdapter.HomeRecyclerViewHolder>() {
 
     var onItemClick: ((Artwork) -> Unit)? = null

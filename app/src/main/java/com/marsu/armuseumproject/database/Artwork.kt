@@ -5,6 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
+/**
+ * Structure for our single table within our Room Database
+ */
 @Parcelize
 @Entity(tableName = "art_table")
 data class Artwork(

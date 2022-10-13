@@ -31,7 +31,7 @@
             android:name=".activities.ArtInfoActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.ARMuseumProject.PopupTheme"/>
+            android:theme="@style/Theme.ARMuseumProject.PopupTheme" />
         <activity
             android:name=".activities.SelectDepartmentActivity"
             android:exported="false"
