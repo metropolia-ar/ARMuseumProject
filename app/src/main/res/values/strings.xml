@@ -1,25 +1,14 @@
 <resources>
     <string name="app_name">AR Museum Project</string>
-    <string name="ar_selection">AR Selection</string>
-    <string name="back">Back</string>
-    <string name="select_photo">Select photo...</string>
-    <string name="start_ar">Start AR</string>
     <string name="add_artwork">Add</string>
-    <string name="open_api_service">Open APIService</string>
-    <string name="open_selectFromGallery">Open SFG</string>
-    <string name="pickImageToast">You have to pick image from gallery before saving it</string>
-    <string name="save_image">Save image</string>
-    <string name="search">Search</string>
-    <string name="searching">Searching...</string>
-    <string name="results">results</string>
-    <string name="result">result</string>
-    <string name="no_result">No results</string>
-    <string name="reset">Reset</string>
-    <string name="search_arts">Search art..</string>
-    <string name="filter">Filter</string>
-    <string name="not_found_text">It is really quiet in here..</string>
-    <string name="saved">Image saved</string>
-    <string name="search_too_short">Search must contain at least 2 characters</string>
+    <string name="ar" translatable="false">AR</string>
+    <string name="ar_selection">AR Selection</string>
+    <string name="artist">Artist</string>
+    <string name="back">Back</string>
+    <string name="chosen_artwork">Chosen artwork:</string>
+    <string name="classification">Classification</string>
+    <string name="delete_current">Delete current artwork</string>
+
     <string name="dep1">American Decorative Arts</string>
     <string name="dep3">Ancient Near Eastern Art</string>
     <string name="dep4">Arms and Armor</string>
@@ -39,20 +28,33 @@
     <string name="dep18">Musical Instruments</string>
     <string name="dep19">Photographs</string>
     <string name="dep21">Modern Art</string>
-    <string name="galleryButton">Gallery</string>
-    <string name="saveButton">Save</string>
-    <string name="Title">Title *</string>
-    <string name="Artist">Artist</string>
+
     <string name="department">Department</string>
-    <string name="classification">Classification</string>
+    <string name="filter">Filter</string>
+    <string name="galleryButton">Gallery</string>
     <string name="home">Home</string>
-    <string name="online_artwork">Museum</string>
-    <string name="ar" translatable="false">AR</string>
-    <string name="chosen_artwork">Chosen artwork:</string>
-    <string name="none">None</string>
     <string name="home_intro">Please enter the museum or add an artwork of your own to get started!</string>
     <string name="home_recent">Most recently viewed artwork:</string>
-    <string name="welcome">Welcome!</string>
-    <string name="delete_current">Delete current artwork</string>
+    <string name="no_result">No results</string>
+    <string name="none">None</string>
+    <string name="not_found_text">It is really quiet in here..</string>
+    <string name="online_artwork">Museum</string>
+    <string name="open_api_service">Open APIService</string>
+    <string name="open_selectFromGallery">Open SFG</string>
+    <string name="pickImageToast">You have to pick image from gallery before saving it</string>
     <string name="phone_rotation_warning">Please hold your phone upright!</string>
+    <string name="reset">Reset</string>
+    <string name="result">result</string>
+    <string name="results">results</string>
+    <string name="save_image">Save image</string>
+    <string name="saveButton">Save</string>
+    <string name="saved">Image saved</string>
+    <string name="search">Search</string>
+    <string name="searching">Searching...</string>
+    <string name="search_arts">Search art..</string>
+    <string name="search_too_short">Search must contain at least 2 characters</string>
+    <string name="select_photo">Select photo...</string>
+    <string name="start_ar">Start AR</string>
+    <string name="title">Title *</string>
+    <string name="welcome">Welcome!</string>
 </resources>

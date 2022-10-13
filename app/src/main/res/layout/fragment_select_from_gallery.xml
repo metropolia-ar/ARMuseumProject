@@ -46,7 +46,7 @@
             android:layout_height="55dp"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
-            android:hint="@string/Title"
+            android:hint="@string/title"
             app:boxBackgroundMode="outline"
             app:boxCornerRadiusBottomEnd="6dp"
             app:boxCornerRadiusBottomStart="6dp"
@@ -84,7 +84,7 @@
                 android:id="@+id/inputArtist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/Artist"
+                android:hint="@string/artist"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
