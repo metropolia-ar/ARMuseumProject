@@ -21,7 +21,6 @@
     <string name="not_found_text">Onpa täällä hiljaista..</string>
     <string name="saved">Kuva tallennettu</string>
     <string name="search_too_short">Hakukentän täytyy sisältää vähintään 2 merkkiä</string>
-
     <string name="dep1">American Decorative Arts</string>
     <string name="dep3">Ancient Near Eastern Art</string>
     <string name="dep4">Arms and Armor</string>
@@ -51,6 +50,9 @@
     <string name="online_artwork">Museo</string>
     <string name="chosen_artwork">Valittu taideteos:</string>
     <string name="none">Ei mitään</string>
+    <string name="home_intro">Aloita selaamalla museota tai lisäämällä oma taideteos.</string>
+    <string name="home_recent">Viimeisimpänä katsotut taideteokset:</string>
+    <string name="welcome">Tervetuloa!</string>
     <string name="delete_current">Poista nykyinen taideteos</string>
     <string name="phone_rotation_warning">Pidä puhelintasi pystyasennossa!</string>
 </resources>

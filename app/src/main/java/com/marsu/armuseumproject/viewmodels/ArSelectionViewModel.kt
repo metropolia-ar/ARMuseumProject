@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 class ArSelectionViewModel(application: Application): AndroidViewModel(application) {
     private val database = ArtDB.get(application.applicationContext)
 
-    val imageUri = MutableLiveData<Uri?>(null);
+    val imageUri = MutableLiveData<Uri?>(null)
+    val imageId = MutableLiveData<Int?>(null)
     var getAllArtwork : LiveData<List<Artwork>> = database.artDao().getAllArt()
 }
