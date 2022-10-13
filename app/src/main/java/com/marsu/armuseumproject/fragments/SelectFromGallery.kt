@@ -24,7 +24,10 @@ import java.util.*
 
 const val REQUEST_CODE = 200
 
-
+/**
+ * Fragment for adding custom artwork to the application. Has two input fields for the title and author,
+ * as well as a image input for the artwork itself. Artwork is saved to the Room database.
+ */
 class SelectFromGallery : Fragment() {
     private var entryId: Int = 0
     private var resultUri: Uri? = null
@@ -131,6 +134,9 @@ class SelectFromGallery : Fragment() {
         resultUri = null
     }
 
+    /**
+     * Check if adding image was successful and if so, display the image in the preview ImageView
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val imgView: ImageView = binding.imageFromGallery
@@ -146,6 +152,9 @@ class SelectFromGallery : Fragment() {
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
+    /**
+     * Clear focus from inputs
+     */
     private fun clearFocuses(
         title: TextInputEditText,
         artist: TextInputEditText,

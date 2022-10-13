@@ -20,6 +20,13 @@ import java.lang.reflect.Type
 
 const val SHARED_KEY = "LAST_FIVE"
 
+/**
+ * Fragment for selecting artwork to be displayed in AR mode. Displays all the artwork saved to the Room database
+ * in a RecyclerView. When an artwork has been selected, the 'Start AR' button can be used to navigate to the AR
+ * activity with the image uri coming along as a navigation argument. Also saves the artwork to the most recent
+ * artworks when navigating to AR mode.
+ */
+
 class ArSelection : Fragment() {
 
     private lateinit var arSelectionViewModel: ArSelectionViewModel
@@ -86,6 +93,8 @@ class ArSelection : Fragment() {
         }
     }
 
+    // Navigate to the AR Activity with the selected artwork's image URI as a navigation argument,
+    // and also saves the selected artwork to the most recent list
     private fun navigateToArActivity(v: View) {
         val id = arSelectionViewModel.imageId.value
         if (id != null) {

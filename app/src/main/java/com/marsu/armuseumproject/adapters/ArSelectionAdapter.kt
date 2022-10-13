@@ -1,16 +1,15 @@
 package com.marsu.armuseumproject.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
-import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.databinding.ArtListItemBinding
-import com.squareup.picasso.Picasso
-import javax.inject.Inject
 
+/**
+ * Adapter for the RecyclerView in the AR Selection Fragment
+ */
 class ArSelectionAdapter: RecyclerView.Adapter<ArSelectionAdapter.ArSelectionViewHolder>() {
 
     var onItemClick: ((Artwork) -> Unit)? = null
@@ -22,8 +21,6 @@ class ArSelectionAdapter: RecyclerView.Adapter<ArSelectionAdapter.ArSelectionVie
     }
 
     override fun onBindViewHolder(holder: ArSelectionViewHolder, position: Int) {
-
-
         val art = artList[position]
         holder.binding.art = art
 
@@ -31,7 +28,6 @@ class ArSelectionAdapter: RecyclerView.Adapter<ArSelectionAdapter.ArSelectionVie
         if (art.artistDisplayName.isNotEmpty()) artistName = "By ${art.artistDisplayName}"
         holder.binding.imageArtist.text = artistName
         holder.binding.artThumbnail.setImageURI(art.primaryImageSmall.toUri())
-
     }
 
     override fun getItemCount() = artList.size
