@@ -46,23 +46,18 @@ class SelectFromGallery : Fragment() {
         viewModel = SelectFromGalleryViewModel()
 
         val view = binding.root
-        val button: Button = binding.ChooseImage
         val saveButton: Button = binding.saveButton
         val titleEditText = binding.inputTitle
         val artistEditText = binding.inputArtist
-        val departmentEditText = binding.inputDepartment
-        val classEditText = binding.inputClassification
         val imgView = binding.imageFromGallery
         val constraint = binding.ConstraintLayout
 
-        imgView.setImageResource(R.drawable.ic_baseline_image_24)
+        imgView.setImageResource(R.drawable.ic_baseline_add_a_photo_24)
 
         constraint.setOnClickListener {
             clearFocuses(
                 titleEditText,
                 artistEditText,
-                departmentEditText,
-                classEditText,
                 constraint
             )
         }
@@ -70,9 +65,7 @@ class SelectFromGallery : Fragment() {
         imgView.setOnClickListener {
             openGalleryForImage()
         }
-        button.setOnClickListener {
-            openGalleryForImage()
-        }
+
         saveButton.setOnClickListener {
             if (resultUri == null || titleEditText.text.toString() == "") {
                 Toast.makeText(
@@ -86,15 +79,11 @@ class SelectFromGallery : Fragment() {
                     viewModel,
                     newUri,
                     titleEditText.text.toString(),
-                    artistEditText.text.toString(),
-                    departmentEditText.text.toString(),
-                    classEditText.text.toString()
+                    artistEditText.text.toString()
                 )
                 clearEditTexts(
                     titleEditText,
                     artistEditText,
-                    departmentEditText,
-                    classEditText,
                     imgView
                 )
             }
@@ -115,18 +104,16 @@ class SelectFromGallery : Fragment() {
         uri: Uri?,
         title: String,
         artist: String,
-        department: String,
-        classification: String
     ) {
         viewModel.insertImage(
             Artwork(
                 entryId,
                 uri.toString(),
                 uri.toString(),
-                department,
+                "",
                 title,
                 artist,
-                classification
+                ""
             )
         )
     }
@@ -134,18 +121,12 @@ class SelectFromGallery : Fragment() {
     private fun clearEditTexts(
         title: TextInputEditText,
         artist: TextInputEditText,
-        department: TextInputEditText,
-        classification: TextInputEditText,
         imgView: ImageView
     ) {
         title.setText("")
         artist.setText("")
-        department.setText("")
-        classification.setText("")
         title.clearFocus()
         artist.clearFocus()
-        department.clearFocus()
-        classification.clearFocus()
         imgView.setImageResource(R.drawable.ic_baseline_image_24)
         resultUri = null
     }
@@ -168,14 +149,10 @@ class SelectFromGallery : Fragment() {
     private fun clearFocuses(
         title: TextInputEditText,
         artist: TextInputEditText,
-        department: TextInputEditText,
-        classification: TextInputEditText,
         view: View
     ) {
         title.clearFocus()
         artist.clearFocus()
-        department.clearFocus()
-        classification.clearFocus()
         closeKeyBoard(view)
     }
 }
