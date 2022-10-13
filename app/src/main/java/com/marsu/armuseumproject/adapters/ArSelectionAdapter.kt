@@ -1,17 +1,13 @@
 package com.marsu.armuseumproject.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
-import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.databinding.ArtListItemBinding
-import com.squareup.picasso.Picasso
-import javax.inject.Inject
 
-class ArSelectionAdapter: RecyclerView.Adapter<ArSelectionAdapter.ArSelectionViewHolder>() {
+class ArSelectionAdapter : RecyclerView.Adapter<ArSelectionAdapter.ArSelectionViewHolder>() {
 
     var onItemClick: ((Artwork) -> Unit)? = null
     private var artList: List<Artwork> = emptyList()
@@ -22,7 +18,6 @@ class ArSelectionAdapter: RecyclerView.Adapter<ArSelectionAdapter.ArSelectionVie
     }
 
     override fun onBindViewHolder(holder: ArSelectionViewHolder, position: Int) {
-
 
         val art = artList[position]
         holder.binding.art = art
@@ -45,7 +40,8 @@ class ArSelectionAdapter: RecyclerView.Adapter<ArSelectionAdapter.ArSelectionVie
     }
 
     // Add a onItemClick function that can be called from fragments via ApiServiceAdapter.onItemClick = {}
-    inner class ArSelectionViewHolder(val binding: ArtListItemBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ArSelectionViewHolder(val binding: ArtListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         init {
             binding.recyclerCard.setOnClickListener {
                 onItemClick?.invoke(artList[adapterPosition])

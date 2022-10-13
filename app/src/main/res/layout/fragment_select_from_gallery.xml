@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -47,7 +46,7 @@
             android:layout_height="55dp"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
-            android:hint="@string/Title"
+            android:hint="@string/title"
             app:boxBackgroundMode="outline"
             app:boxCornerRadiusBottomEnd="6dp"
             app:boxCornerRadiusBottomStart="6dp"
@@ -60,9 +59,9 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputTitle"
-                android:singleLine="true"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -83,10 +82,10 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputArtist"
-                android:singleLine="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/Artist" />
+                android:hint="@string/artist"
+                android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -107,10 +106,10 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputDepartment"
-                android:singleLine="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/department" />
+                android:hint="@string/department"
+                android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -131,12 +130,11 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputClassification"
-                android:singleLine="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/classification" />
+                android:hint="@string/classification"
+                android:singleLine="true" />
+
         </com.google.android.material.textfield.TextInputLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

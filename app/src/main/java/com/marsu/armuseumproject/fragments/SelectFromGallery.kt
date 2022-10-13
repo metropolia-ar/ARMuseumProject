@@ -24,14 +24,11 @@ import java.util.*
 
 const val REQUEST_CODE = 200
 
-
 class SelectFromGallery : Fragment() {
     private var entryId: Int = 0
     private var resultUri: Uri? = null
-    private var imageUri: Uri? = null
     private var _binding: FragmentSelectFromGalleryBinding? = null
     private val binding get() = _binding!!
-
 
     companion object {
         private lateinit var viewModel: SelectFromGalleryViewModel
@@ -108,7 +105,6 @@ class SelectFromGallery : Fragment() {
         intent.type = "image/*"
         startActivityForResult(intent, REQUEST_CODE)
     }
-
 
     private fun insertToDatabase(
         viewModel: SelectFromGalleryViewModel,

@@ -5,8 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+/**
+ * Database initialization and link for accessing DAO.
+ */
 @Database(entities = [Artwork::class], version = 2)
-abstract class ArtDB: RoomDatabase() {
+abstract class ArtDB : RoomDatabase() {
     abstract fun artDao(): ArtworkDAO
 
     companion object {
@@ -15,8 +18,10 @@ abstract class ArtDB: RoomDatabase() {
         @Synchronized
         fun get(context: Context): ArtDB {
             if (INSTANCE == null) {
-                INSTANCE = Room.databaseBuilder(context.applicationContext,
-                ArtDB::class.java, "artdb").fallbackToDestructiveMigration().build()
+                INSTANCE = Room.databaseBuilder(
+                    context.applicationContext,
+                    ArtDB::class.java, "artdb"
+                ).fallbackToDestructiveMigration().build()
             }
             return INSTANCE!!
         }

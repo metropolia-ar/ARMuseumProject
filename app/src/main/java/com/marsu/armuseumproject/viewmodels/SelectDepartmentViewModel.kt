@@ -9,7 +9,7 @@ import com.marsu.armuseumproject.activities.SelectDepartmentActivity
 /**
  * ViewModel for SelectDepartmentActivity. Provides functionality for selecting a department and saving it to SharedPreferences.
  */
-class SelectDepartmentViewModel(val context: SelectDepartmentActivity): ViewModel() {
+class SelectDepartmentViewModel(val context: SelectDepartmentActivity) : ViewModel() {
 
     /**
      * Set selected department

@@ -3,6 +3,9 @@ package com.marsu.armuseumproject.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
+/**
+ * Calls for inserting and retrieving Artworks to/from Room Database
+ */
 @Dao
 interface ArtworkDAO {
     // Adds arwork to DB

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <data>
+
         <variable
             name="selectDepartmentViewModel"
             type="com.marsu.armuseumproject.viewmodels.SelectDepartmentViewModel" />
@@ -16,7 +15,6 @@
         android:layout_height="match_parent"
         android:background="@drawable/custom_container"
         tools:context=".activities.SelectDepartmentActivity">
-
 
         <ScrollView
             android:id="@+id/scrollView2"
@@ -157,7 +155,6 @@
                     android:text="@string/dep21" />
 
             </RadioGroup>
-
         </ScrollView>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -184,7 +181,5 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/department_reset_button" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

@@ -8,13 +8,11 @@ import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.navArgs
 import com.google.ar.core.HitResult
 import com.google.ar.sceneform.AnchorNode
@@ -87,11 +85,13 @@ class ArActivity : AppCompatActivity(), SensorEventListener {
         val arLayout = LinearLayout(this)
         arLayout.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.MATCH_PARENT)
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
         val arImage = ImageView(this)
         arImage.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT)
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
         arImage.adjustViewBounds = true
         arImage.maxHeight = MAX_IMAGE_HEIGHT
         arImage.maxWidth = MAX_IMAGE_WIDTH
@@ -101,7 +101,7 @@ class ArActivity : AppCompatActivity(), SensorEventListener {
         ViewRenderable.builder()
             .setView(this, arLayout)
             .build()
-            .thenAccept{viewRenderable = it}
+            .thenAccept { viewRenderable = it }
 
         arFrag.setOnTapArPlaneListener { hitResult: HitResult?, _, _ ->
             viewRenderable ?: return@setOnTapArPlaneListener
