@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -35,6 +36,21 @@ class ArSelection : Fragment() {
     private var _binding: FragmentArSelectionBinding? = null;
     private val binding get() = _binding!!
     private var lastFive = mutableListOf<Int>() // initiate variable
+
+    private val args: ArSelectionArgs by navArgs()
+
+    // Handle possible navigation arguments if coming via the recent artworks list from Home Fragment
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val chosenArtwork = args.latestArtwork
+        if (chosenArtwork != null) {
+            binding.chosenTitle.text = chosenArtwork.title
+            binding.chosenArtist.text = chosenArtwork.artistDisplayName
+            arSelectionViewModel.imageUri.postValue(chosenArtwork.primaryImage.toUri())
+            arSelectionViewModel.imageId.postValue(chosenArtwork.objectID)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

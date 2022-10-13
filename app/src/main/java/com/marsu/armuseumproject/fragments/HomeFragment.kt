@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -43,6 +44,12 @@ class HomeFragment : Fragment() {
 
         adapter = HomeRecyclerAdapter()
         adapter.setHasStableIds(true)
+
+        // When clicking on recent artworks, navigate to the AR selection fragment with the chosen artwork being automatically selected there
+        adapter.onItemClick = { artwork ->
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToArSelection(artwork))
+        }
+
         layoutManager = LinearLayoutManager(activity)
         binding.homeRecycler.adapter = adapter
         binding.homeRecycler.setHasFixedSize(true)
