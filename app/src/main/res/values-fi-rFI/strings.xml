@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AR Museum Project</string>
+    <string name="app_name">ARMuseum</string>
     <string name="add_artwork">Lisää</string>
     <string name="ar_selection">AR Valinta</string>
     <string name="artist">Tekijä</string>
