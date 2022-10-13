@@ -21,7 +21,7 @@ object APIService {
     interface Service {
 
         /**
-         * Fetches Artwork data according to the give objectID.
+         * Fetches Artwork data according to the given objectID.
          * @return Artwork object
          */
         @GET("objects/{objectID}")
