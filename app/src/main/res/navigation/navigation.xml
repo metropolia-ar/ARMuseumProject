@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_selectFromGallery"
             app:destination="@id/selectFromGalleryFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_arSelectionFragment"
+            app:destination="@id/arSelectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/arSelectionFragment"
@@ -31,6 +34,11 @@
         <action
             android:id="@+id/action_ar_Selection_to_arActivity"
             app:destination="@id/arActivity" />
+        <argument
+            android:name="latestArtwork"
+            app:argType="com.marsu.armuseumproject.database.Artwork"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <activity
         android:id="@+id/arActivity"

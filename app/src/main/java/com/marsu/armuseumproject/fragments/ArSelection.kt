@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -20,6 +21,13 @@ import java.lang.reflect.Type
 
 const val SHARED_KEY = "LAST_FIVE"
 
+/**
+ * Fragment for selecting artwork to be displayed in AR mode. Displays all the artwork saved to the Room database
+ * in a RecyclerView. When an artwork has been selected, the 'Start AR' button can be used to navigate to the AR
+ * activity with the image uri coming along as a navigation argument. Also saves the artwork to the most recent
+ * artworks when navigating to AR mode.
+ */
+
 class ArSelection : Fragment() {
 
     private lateinit var arSelectionViewModel: ArSelectionViewModel
@@ -28,6 +36,21 @@ class ArSelection : Fragment() {
     private var _binding: FragmentArSelectionBinding? = null;
     private val binding get() = _binding!!
     private var lastFive = mutableListOf<Int>() // initiate variable
+
+    private val args: ArSelectionArgs by navArgs()
+
+    // Handle possible navigation arguments if coming via the recent artworks list from Home Fragment
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val chosenArtwork = args.latestArtwork
+        if (chosenArtwork != null) {
+            binding.chosenTitle.text = chosenArtwork.title
+            binding.chosenArtist.text = chosenArtwork.artistDisplayName
+            arSelectionViewModel.imageUri.postValue(chosenArtwork.primaryImage.toUri())
+            arSelectionViewModel.imageId.postValue(chosenArtwork.objectID)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -86,6 +109,8 @@ class ArSelection : Fragment() {
         }
     }
 
+    // Navigate to the AR Activity with the selected artwork's image URI as a navigation argument,
+    // and also saves the selected artwork to the most recent list
     private fun navigateToArActivity(v: View) {
         val id = arSelectionViewModel.imageId.value
         if (id != null) {

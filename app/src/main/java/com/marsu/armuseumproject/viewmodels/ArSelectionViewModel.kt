@@ -8,10 +8,14 @@ import androidx.lifecycle.MutableLiveData
 import com.marsu.armuseumproject.database.ArtDB
 import com.marsu.armuseumproject.database.Artwork
 
-class ArSelectionViewModel(application: Application) : AndroidViewModel(application) {
+/**
+ * ViewModel for the AR Selection Fragment, retrieves the artwork from the Room database to display
+ * in the RecyclerView
+ */
+class ArSelectionViewModel(application: Application): AndroidViewModel(application) {
     private val database = ArtDB.get(application.applicationContext)
 
     val imageUri = MutableLiveData<Uri?>(null)
     val imageId = MutableLiveData<Int?>(null)
-    var getAllArtwork: LiveData<List<Artwork>> = database.artDao().getAllArt()
+    var getAllArtwork : LiveData<List<Artwork>> = database.artDao().getAllArt()
 }

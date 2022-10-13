@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.databinding.ArtListItemBinding
 
+/**
+ * Adapter for the RecyclerView in the AR Selection Fragment
+ */
 class ArSelectionAdapter : RecyclerView.Adapter<ArSelectionAdapter.ArSelectionViewHolder>() {
-
     var onItemClick: ((Artwork) -> Unit)? = null
     private var artList: List<Artwork> = emptyList()
 
@@ -18,7 +20,6 @@ class ArSelectionAdapter : RecyclerView.Adapter<ArSelectionAdapter.ArSelectionVi
     }
 
     override fun onBindViewHolder(holder: ArSelectionViewHolder, position: Int) {
-
         val art = artList[position]
         holder.binding.art = art
 
@@ -26,7 +27,6 @@ class ArSelectionAdapter : RecyclerView.Adapter<ArSelectionAdapter.ArSelectionVi
         if (art.artistDisplayName.isNotEmpty()) artistName = "By ${art.artistDisplayName}"
         holder.binding.imageArtist.text = artistName
         holder.binding.artThumbnail.setImageURI(art.primaryImageSmall.toUri())
-
     }
 
     override fun getItemCount() = artList.size

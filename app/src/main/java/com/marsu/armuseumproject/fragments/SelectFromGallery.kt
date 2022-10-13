@@ -24,11 +24,17 @@ import java.util.*
 
 const val REQUEST_CODE = 200
 
+/**
+ * Fragment for adding custom artwork to the application. Has two input fields for the title and author,
+ * as well as a image input for the artwork itself. Artwork is saved to the Room database.
+ */
 class SelectFromGallery : Fragment() {
     private var entryId: Int = 0
     private var resultUri: Uri? = null
+    private var imageUri: Uri? = null
     private var _binding: FragmentSelectFromGalleryBinding? = null
     private val binding get() = _binding!!
+
 
     companion object {
         private lateinit var viewModel: SelectFromGalleryViewModel
@@ -43,23 +49,18 @@ class SelectFromGallery : Fragment() {
         viewModel = SelectFromGalleryViewModel()
 
         val view = binding.root
-        val button: Button = binding.ChooseImage
         val saveButton: Button = binding.saveButton
         val titleEditText = binding.inputTitle
         val artistEditText = binding.inputArtist
-        val departmentEditText = binding.inputDepartment
-        val classEditText = binding.inputClassification
         val imgView = binding.imageFromGallery
         val constraint = binding.ConstraintLayout
 
-        imgView.setImageResource(R.drawable.ic_baseline_image_24)
+        imgView.setImageResource(R.drawable.ic_baseline_add_a_photo_24)
 
         constraint.setOnClickListener {
             clearFocuses(
                 titleEditText,
                 artistEditText,
-                departmentEditText,
-                classEditText,
                 constraint
             )
         }
@@ -67,9 +68,7 @@ class SelectFromGallery : Fragment() {
         imgView.setOnClickListener {
             openGalleryForImage()
         }
-        button.setOnClickListener {
-            openGalleryForImage()
-        }
+
         saveButton.setOnClickListener {
             if (resultUri == null || titleEditText.text.toString() == "") {
                 Toast.makeText(
@@ -83,15 +82,11 @@ class SelectFromGallery : Fragment() {
                     viewModel,
                     newUri,
                     titleEditText.text.toString(),
-                    artistEditText.text.toString(),
-                    departmentEditText.text.toString(),
-                    classEditText.text.toString()
+                    artistEditText.text.toString()
                 )
                 clearEditTexts(
                     titleEditText,
                     artistEditText,
-                    departmentEditText,
-                    classEditText,
                     imgView
                 )
             }
@@ -106,23 +101,22 @@ class SelectFromGallery : Fragment() {
         startActivityForResult(intent, REQUEST_CODE)
     }
 
+
     private fun insertToDatabase(
         viewModel: SelectFromGalleryViewModel,
         uri: Uri?,
         title: String,
         artist: String,
-        department: String,
-        classification: String
     ) {
         viewModel.insertImage(
             Artwork(
                 entryId,
                 uri.toString(),
                 uri.toString(),
-                department,
+                "",
                 title,
                 artist,
-                classification
+                ""
             )
         )
     }
@@ -130,22 +124,19 @@ class SelectFromGallery : Fragment() {
     private fun clearEditTexts(
         title: TextInputEditText,
         artist: TextInputEditText,
-        department: TextInputEditText,
-        classification: TextInputEditText,
         imgView: ImageView
     ) {
         title.setText("")
         artist.setText("")
-        department.setText("")
-        classification.setText("")
         title.clearFocus()
         artist.clearFocus()
-        department.clearFocus()
-        classification.clearFocus()
         imgView.setImageResource(R.drawable.ic_baseline_image_24)
         resultUri = null
     }
 
+    /**
+     * Check if adding image was successful and if so, display the image in the preview ImageView
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val imgView: ImageView = binding.imageFromGallery
@@ -161,17 +152,16 @@ class SelectFromGallery : Fragment() {
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
+    /**
+     * Clear focus from inputs
+     */
     private fun clearFocuses(
         title: TextInputEditText,
         artist: TextInputEditText,
-        department: TextInputEditText,
-        classification: TextInputEditText,
         view: View
     ) {
         title.clearFocus()
         artist.clearFocus()
-        department.clearFocus()
-        classification.clearFocus()
         closeKeyBoard(view)
     }
 }
