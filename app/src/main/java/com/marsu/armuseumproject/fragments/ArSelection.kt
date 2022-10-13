@@ -13,9 +13,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.marsu.armuseumproject.MyApp
 import com.marsu.armuseumproject.adapters.ArSelectionAdapter
-import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.databinding.FragmentArSelectionBinding
 import com.marsu.armuseumproject.viewmodels.ArSelectionViewModel
 import java.lang.reflect.Type
@@ -44,7 +42,7 @@ class ArSelection : Fragment() {
         _binding = FragmentArSelectionBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        // Retrieving the previously stored list of id's to use it as a base
+        // Retrieving the previously stored list of id's to use it as a base for lastFive
         val sharedPreferences = activity?.getPreferences(Context.MODE_PRIVATE)
         val json = sharedPreferences?.getString(SHARED_KEY, null)
         val type: Type = object : TypeToken<List<Int>>() {}.type
@@ -97,7 +95,9 @@ class ArSelection : Fragment() {
         v.findNavController().navigate(action)
     }
 
-    // Adds id of selected Artwork to a list
+    // Saving latest watched artwork id into MutableList<Int>
+    // Checks if the id already exist in the list
+    // If it does, removes the old one from the collection before adding it again as the latest
     private fun addToList(id: Int) {
         if (lastFive.contains(id)) {
             val index = lastFive.indexOf(id)

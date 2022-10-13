@@ -1,20 +1,15 @@
 package com.marsu.armuseumproject.fragments
 
-import android.app.Application
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.marsu.armuseumproject.adapters.HomeRecyclerAdapter
-import com.marsu.armuseumproject.database.ArtDB
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.databinding.FragmentHomeBinding
 import com.marsu.armuseumproject.viewmodels.HomeViewModel
@@ -67,21 +62,6 @@ class HomeFragment : Fragment() {
             }
         }
 
-        // TODO: Place the logic to the AR Selection
-        // Initial logic for adding latest watched artwork id or uri
-        // Checks if the id or uri already exist in the list
-        // If it does, removes the old one from the collection before adding it again as the latest
-
-        // TODO: Place the logic to the AR Selection
-        // Logic to store list into shared preference
-        // Accessing .getSharedPreferences function to retrieve or modify, requires context
-        // Make the SHARED_KEY a const val outside the ar selection class, like request_code in sfg
-
-
-        // TODO: Retrieve stored data from shared preferences and show in this view
-        // First access to the shared preferences
-        // Retrieve LAST_FIVE
-        // Convert back to list
         return view
     }
 
