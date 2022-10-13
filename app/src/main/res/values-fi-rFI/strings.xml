@@ -5,7 +5,7 @@
     <string name="back">Takaisin</string>
     <string name="select_photo">Valitse kuva...</string>
     <string name="start_ar">Aloita AR</string>
-    <string name="add_artwork">Lisää taideteos</string>
+    <string name="add_artwork">Lisää</string>
     <string name="open_api_service">Avaa APIService</string>
     <string name="open_selectFromGallery">Avaa SFG</string>
     <string name="pickImageToast">Galleriasta pitää olla valittuna kuva ennen sen tallentamista</string>
@@ -21,7 +21,6 @@
     <string name="not_found_text">Onpa täällä hiljaista..</string>
     <string name="saved">Kuva tallennettu</string>
     <string name="search_too_short">Hakukentän täytyy sisältää vähintään 2 merkkiä</string>
-
     <string name="dep1">American Decorative Arts</string>
     <string name="dep3">Ancient Near Eastern Art</string>
     <string name="dep4">Arms and Armor</string>
@@ -48,8 +47,10 @@
     <string name="classification">Taidelaji</string>
     <string name="department">Tyylilaji</string>
     <string name="home">Koti</string>
-    <string name="online_artwork">Taideteokset netissä</string>
+    <string name="online_artwork">Museo</string>
     <string name="chosen_artwork">Valittu taideteos:</string>
     <string name="none">Ei mitään</string>
     <string name="home_intro">Kokeile miltä taulut näyttäisivät omalla seinälläsi.</string>
+    <string name="delete_current">Poista nykyinen taideteos</string>
+    <string name="phone_rotation_warning">Pidä puhelintasi pystyasennossa!</string>
 </resources>

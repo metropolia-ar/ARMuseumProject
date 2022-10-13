@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.activities.SelectDepartmentActivity
 
-
+/**
+ * ViewModel for SelectDepartmentActivity. Provides functionality for selecting a department and saving it to SharedPreferences.
+ */
 class SelectDepartmentViewModel(val context: SelectDepartmentActivity): ViewModel() {
 
     /**
@@ -29,6 +31,9 @@ class SelectDepartmentViewModel(val context: SelectDepartmentActivity): ViewMode
         return pref.getInt("selectedDepartmentRadioButton", 0)
     }
 
+    /**
+     * Sets the selected department info to SharedPreferences.
+     */
     fun setDepartmentInfo(int: Int) {
 
         fun setToPreferences(id: Int, nameId: Int) {
@@ -57,5 +62,4 @@ class SelectDepartmentViewModel(val context: SelectDepartmentActivity): ViewMode
             R.id.dep21 -> setToPreferences(21, R.string.dep21)
         }
     }
-
 }

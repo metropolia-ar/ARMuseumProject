@@ -1,5 +1,6 @@
 package com.marsu.armuseumproject.adapters
 
+import android.os.SystemClock
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,13 +10,16 @@ import com.marsu.armuseumproject.R
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.databinding.ArtListItemBinding
 import com.marsu.armuseumproject.fragments.APIServiceFragmentDirections
-import com.marsu.armuseumproject.fragments.ArtInfoFragment
 import com.squareup.picasso.Picasso
 
+/**
+ * Serves as a Adapter for the RecyclerView used in the ApiServiceFragment. Displays the artwork's name, artist's name and a minimal
+ * image of the Artwork. Clicking on the item opens up the ArtInfoActivity popup.
+ */
 class ApiServiceAdapter: RecyclerView.Adapter<ApiServiceAdapter.ApiServiceViewHolder>() {
 
     private var artList: List<Artwork> = emptyList()
-
+    private var lastDepClick = 0L
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ApiServiceViewHolder {
         val binding = ArtListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -33,9 +37,10 @@ class ApiServiceAdapter: RecyclerView.Adapter<ApiServiceAdapter.ApiServiceViewHo
         holder.binding.imageArtist.text = artistName
 
         holder.binding.listItem.setOnClickListener {
-            Log.d("Clicked on", art.title)
-            val action = APIServiceFragmentDirections.actionAPIServiceFragmentToArtInfoFragment2(art)
-            holder.itemView.findNavController().navigate(action)
+            preventButtonClickSpam {
+                val action = APIServiceFragmentDirections.actionAPIServiceFragmentToArtInfoActivity(art)
+                holder.itemView.findNavController().navigate(action)
+            }
         }
 
         try {
@@ -62,6 +67,12 @@ class ApiServiceAdapter: RecyclerView.Adapter<ApiServiceAdapter.ApiServiceViewHo
         notifyDataSetChanged()
     }
 
+    private fun preventButtonClickSpam(f: () -> Unit) {
+        if (SystemClock.elapsedRealtime() - lastDepClick > 1000) {
+            lastDepClick = SystemClock.elapsedRealtime()
+            f()
+        }
+    }
 
     class ApiServiceViewHolder(val binding: ArtListItemBinding): RecyclerView.ViewHolder(binding.root)
 }
