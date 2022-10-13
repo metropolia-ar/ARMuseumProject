@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.marsu.armuseumproject.database.Artwork
 import com.marsu.armuseumproject.databinding.ArtListItemBinding
 
-class HomeRecyclerAdapter: RecyclerView.Adapter<HomeRecyclerAdapter.HomeRecyclerViewHolder>() {
+class HomeRecyclerAdapter : RecyclerView.Adapter<HomeRecyclerAdapter.HomeRecyclerViewHolder>() {
 
     var onItemClick: ((Artwork) -> Unit)? = null
     private var lastFiveObject: List<Artwork> = emptyList()
@@ -35,7 +35,8 @@ class HomeRecyclerAdapter: RecyclerView.Adapter<HomeRecyclerAdapter.HomeRecycler
         notifyDataSetChanged()
     }
 
-    inner class HomeRecyclerViewHolder(val binding: ArtListItemBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class HomeRecyclerViewHolder(val binding: ArtListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         init {
             binding.recyclerCard.setOnClickListener {
                 onItemClick?.invoke(lastFiveObject[adapterPosition])

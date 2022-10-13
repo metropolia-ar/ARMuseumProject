@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso
  * Serves as a Adapter for the RecyclerView used in the ApiServiceFragment. Displays the artwork's name, artist's name and a minimal
  * image of the Artwork. Clicking on the item opens up the ArtInfoActivity popup.
  */
-class ApiServiceAdapter: RecyclerView.Adapter<ApiServiceAdapter.ApiServiceViewHolder>() {
+class ApiServiceAdapter : RecyclerView.Adapter<ApiServiceAdapter.ApiServiceViewHolder>() {
 
     private var artList: List<Artwork> = emptyList()
     private var lastDepClick = 0L
@@ -37,7 +37,8 @@ class ApiServiceAdapter: RecyclerView.Adapter<ApiServiceAdapter.ApiServiceViewHo
 
         holder.binding.listItem.setOnClickListener {
             preventButtonClickSpam {
-                val action = APIServiceFragmentDirections.actionAPIServiceFragmentToArtInfoActivity(art)
+                val action =
+                    APIServiceFragmentDirections.actionAPIServiceFragmentToArtInfoActivity(art)
                 holder.itemView.findNavController().navigate(action)
             }
         }
@@ -73,5 +74,6 @@ class ApiServiceAdapter: RecyclerView.Adapter<ApiServiceAdapter.ApiServiceViewHo
         }
     }
 
-    class ApiServiceViewHolder(val binding: ArtListItemBinding): RecyclerView.ViewHolder(binding.root)
+    class ApiServiceViewHolder(val binding: ArtListItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

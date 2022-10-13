@@ -26,7 +26,7 @@ class APIServiceFragment : Fragment() {
     private lateinit var apiServiceViewModel: ApiServiceViewModel
     private lateinit var binding: FragmentApiServiceBinding
     private lateinit var adapter: ApiServiceAdapter
-    private lateinit var layoutManager : LinearLayoutManager
+    private lateinit var layoutManager: LinearLayoutManager
 
     private var lastDepClick = 0L
 
@@ -108,7 +108,9 @@ class APIServiceFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (layoutManager.findLastCompletelyVisibleItemPosition() >=
-                    (apiServiceViewModel.artsList.value?.size?.minus(apiServiceViewModel.paginationAmount) ?: 0)) {
+                    (apiServiceViewModel.artsList.value?.size?.minus(apiServiceViewModel.paginationAmount)
+                        ?: 0)
+                ) {
 
                     if ((apiServiceViewModel.loadingResults.value == false)) {
                         apiServiceViewModel.getArts(false)
@@ -119,14 +121,13 @@ class APIServiceFragment : Fragment() {
         })
 
         // ProgressBar & recyclerview invisibility while loading
-        apiServiceViewModel.initialBatchLoaded.observe(viewLifecycleOwner) {status ->
+        apiServiceViewModel.initialBatchLoaded.observe(viewLifecycleOwner) { status ->
             status.let {
                 if (!it) {
                     binding.progressBar.visibility = View.VISIBLE
                     binding.recyclerView.visibility = View.INVISIBLE
                     binding.searchButton.isEnabled = false
-                }
-                else {
+                } else {
                     binding.progressBar.visibility = View.INVISIBLE
                     binding.recyclerView.visibility = View.VISIBLE
                     binding.searchButton.isEnabled = true

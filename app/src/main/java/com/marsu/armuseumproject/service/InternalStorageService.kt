@@ -80,7 +80,7 @@ object InternalStorageService {
      */
     private fun saveFileToInternalStorage(url: URL): String {
 
-        var id : Int? = UUID.randomUUID().hashCode() * -1
+        var id: Int? = UUID.randomUUID().hashCode() * -1
         var newDir = "$dir/$id.png"
 
         var inputStream: InputStream? = null
@@ -98,7 +98,7 @@ object InternalStorageService {
                 val bmp = inputStream.readBytes()
                 fileOutputStream.write(bmp)
             }
-        }  catch (e: Exception) {
+        } catch (e: Exception) {
             Log.e("IMG_CREATE", "Failed to copy image", e)
             inputStream?.close()
             fileOutputStream?.close()

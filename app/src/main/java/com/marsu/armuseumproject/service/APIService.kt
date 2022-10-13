@@ -8,7 +8,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import java.net.URL
 
-
 /**
  * Provides a Service, which contains the functionality for making queries to the API.
  * @see <a href="https://metmuseum.github.io/">The Metropolitan Museum of Art Collection API</a>
@@ -16,6 +15,7 @@ import java.net.URL
 object APIService {
 
     data class SearchResult(val total: String, val objectIDs: MutableList<Int>)
+
     private val baseURL = URL("https://collectionapi.metmuseum.org/public/collection/v1/")
 
     interface Service {
@@ -26,7 +26,7 @@ object APIService {
          */
         @GET("objects/{objectID}")
         suspend fun getObjectByID(
-            @Path(value = "objectID") objectID : Int
+            @Path(value = "objectID") objectID: Int
         ): Artwork
 
         /**
@@ -35,9 +35,9 @@ object APIService {
          */
         @GET("search?")
         suspend fun getArtIDs(
-            @Query("isOnView") isOnView : Boolean = true,
-            @Query("hasImages") hasImages : Boolean = true,
-            @Query("medium") medium : String = "Paintings",
+            @Query("isOnView") isOnView: Boolean = true,
+            @Query("hasImages") hasImages: Boolean = true,
+            @Query("medium") medium: String = "Paintings",
             @Query("q") q: String
         ): SearchResult
 
@@ -47,9 +47,9 @@ object APIService {
          */
         @GET("search?")
         suspend fun getArtIDs(
-            @Query("isOnView") isOnView : Boolean = true,
-            @Query("hasImages") hasImages : Boolean = true,
-            @Query("medium") medium : String = "Paintings",
+            @Query("isOnView") isOnView: Boolean = true,
+            @Query("hasImages") hasImages: Boolean = true,
+            @Query("medium") medium: String = "Paintings",
             @Query("q") q: String,
             @Query("departmentId") departmentId: Int
         ): SearchResult
