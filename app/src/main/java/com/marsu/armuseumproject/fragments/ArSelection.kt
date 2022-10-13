@@ -56,13 +56,10 @@ class ArSelection : Fragment() {
         adapter.setHasStableIds(true)
         layoutManager = LinearLayoutManager(activity)
         adapter.onItemClick = { artwork ->
-
-            addToList(artwork.objectID)
-            addToSharedPrefs()
-
             binding.chosenTitle.text = artwork.title
             binding.chosenArtist.text = artwork.artistDisplayName
             arSelectionViewModel.imageUri.postValue(artwork.primaryImage.toUri())
+            arSelectionViewModel.imageId.postValue(artwork.objectID)
         }
         binding.arSelectionRecyclerview.adapter = adapter
         binding.arSelectionRecyclerview.layoutManager = LinearLayoutManager(requireContext())
@@ -90,6 +87,11 @@ class ArSelection : Fragment() {
     }
 
     private fun navigateToArActivity(v: View) {
+        val id = arSelectionViewModel.imageId.value
+        if (id != null) {
+            addToList(id)
+            addToSharedPrefs()
+        }
         val uri = arSelectionViewModel.imageUri.value.toString()
         val action = ArSelectionDirections.actionArSelectionToArActivity(uri)
         v.findNavController().navigate(action)

@@ -52,8 +52,8 @@ class HomeFragment : Fragment() {
         // Getting the artwork objects by id's collected in lastFive and sending info to recycler adapter
         var collectedLastFive: List<Artwork> = listOf()
         for (i in lastFive.indices) {
-            viewModel.getArt(lastFive[i]).observe(viewLifecycleOwner) { homoja ->
-                homoja.let {
+            viewModel.getArt(lastFive[i]).observe(viewLifecycleOwner) { item ->
+                item.let {
                     if (it != null) {
                         collectedLastFive += it
                     }
