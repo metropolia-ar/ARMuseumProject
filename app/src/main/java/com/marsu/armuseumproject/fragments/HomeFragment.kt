@@ -16,6 +16,12 @@ import com.marsu.armuseumproject.databinding.FragmentHomeBinding
 import com.marsu.armuseumproject.viewmodels.HomeViewModel
 import java.lang.reflect.Type
 
+/**
+ * Contains 2 TextViews and RecyclerView.
+ * TextViews display a welcome and when first used, short instructions to using the app.
+ * After user has tried some artworks on AR, the instructions change to describing below elements to be recently viewed art.
+ * RecyclerView displays 5 artworks that have been tried out in AR most recently.
+ */
 class HomeFragment : Fragment() {
 
     private lateinit var adapter: HomeRecyclerAdapter

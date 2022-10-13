@@ -10,8 +10,7 @@ import com.marsu.armuseumproject.databinding.ArtListItemBinding
 /**
  * Adapter for the RecyclerView in the AR Selection Fragment
  */
-class ArSelectionAdapter: RecyclerView.Adapter<ArSelectionAdapter.ArSelectionViewHolder>() {
-
+class ArSelectionAdapter : RecyclerView.Adapter<ArSelectionAdapter.ArSelectionViewHolder>() {
     var onItemClick: ((Artwork) -> Unit)? = null
     private var artList: List<Artwork> = emptyList()
 
@@ -41,7 +40,8 @@ class ArSelectionAdapter: RecyclerView.Adapter<ArSelectionAdapter.ArSelectionVie
     }
 
     // Add a onItemClick function that can be called from fragments via ApiServiceAdapter.onItemClick = {}
-    inner class ArSelectionViewHolder(val binding: ArtListItemBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ArSelectionViewHolder(val binding: ArtListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         init {
             binding.recyclerCard.setOnClickListener {
                 onItemClick?.invoke(artList[adapterPosition])

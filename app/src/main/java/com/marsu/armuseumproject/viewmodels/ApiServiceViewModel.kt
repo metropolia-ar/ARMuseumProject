@@ -3,8 +3,6 @@ package com.marsu.armuseumproject.viewmodels
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
-import android.view.View
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,28 +19,28 @@ import retrofit2.HttpException
 /**
  * ViewModel class for ApiServiceFragment. Contains the data displayed within the Fragment.
  */
-class ApiServiceViewModel(val context: Context): ViewModel() {
+class ApiServiceViewModel(val context: Context) : ViewModel() {
 
     private val initialBatchSize = 15
     private val service = APIService.service
-    val searchInput = MutableLiveData("cat")
+    val searchInput = MutableLiveData("")
 
     private val _departmentText = MutableLiveData("")
-    val departmentText : LiveData<String>
-            get() = _departmentText
+    val departmentText: LiveData<String>
+        get() = _departmentText
 
     private val _resultText = MutableLiveData("")
-    val resultText : LiveData<String>
+    val resultText: LiveData<String>
         get() = _resultText
 
     private val _departmentId = MutableLiveData(0)
-    val departmentId : LiveData<Int>
+    val departmentId: LiveData<Int>
         get() = _departmentId
 
     private val _foundIDs = MutableLiveData<MutableList<Int>>()
 
     private val _artsList = MutableLiveData(listOf<Artwork>())
-    val artsList : LiveData<List<Artwork>>
+    val artsList: LiveData<List<Artwork>>
         get() = _artsList
 
     private val _loadingResults = MutableLiveData(true)
@@ -50,14 +48,15 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
         get() = _loadingResults
 
     private val _initialBatchLoaded = MutableLiveData(false)
-    val initialBatchLoaded : LiveData<Boolean>
+    val initialBatchLoaded: LiveData<Boolean>
         get() = _initialBatchLoaded
 
     private val _resultAmount = MutableLiveData(0)
-    val resultAmount : LiveData<Int>
+    private val resultAmount: LiveData<Int>
         get() = _resultAmount
 
     val paginationAmount = 10
+
 
     /**
      * Get Art ids and store them for later usage.
@@ -67,7 +66,10 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
         return if (searchInput.value?.isNotEmpty() == true) {
 
             val response = if (departmentId.value != 0) {
-                service.getArtIDs(q = searchInput.value.toString(), departmentId = departmentId.value ?: 0)
+                service.getArtIDs(
+                    q = searchInput.value.toString(),
+                    departmentId = departmentId.value ?: 0
+                )
             } else {
                 service.getArtIDs(q = searchInput.value.toString())
             }
@@ -121,7 +123,7 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
                 if (_initialBatchLoaded.value != false) _initialBatchLoaded.value = false
 
 
-                for (i in  1..initialBatchSize.coerceAtMost(_foundIDs.value?.size?.minus(1) ?: 0)) {
+                for (i in 1..initialBatchSize.coerceAtMost(_foundIDs.value?.size?.minus(1) ?: 0)) {
                     addArtIfImagesAreFound()
                 }
                 _resultAmount.value = _foundIDs.value?.size ?: 0
@@ -149,7 +151,11 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
         if (searchInput.value?.isEmpty() == true) {
             return
         } else if (searchInput.value != null && searchInput.value?.length!! < 2) {
-            Toast.makeText(MyApp.appContext, "${MyApp.appContext.getString(R.string.search_too_short)}.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                MyApp.appContext,
+                "${MyApp.appContext.getString(R.string.search_too_short)}.",
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
         _artsList.value = mutableListOf()
@@ -159,7 +165,7 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
 
     /**
      * Resets the selected department data from SharedPreferences. Furthermore, updates the LiveData objects regarding the department info.
-      */
+     */
     fun resetSelectedDepartment() {
         val pref: SharedPreferences = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
         val editor = pref.edit()
@@ -226,12 +232,13 @@ class ApiServiceViewModel(val context: Context): ViewModel() {
                 _foundIDs.value?.remove(objectID)
                 Log.d("Empty art removed", "id: $objectID")
             }
-        }
-        catch (e: HttpException) {
-            Log.d("HttpException @ addArtIfImagesAreFound, removing id $objectID", e.message.toString())
+        } catch (e: HttpException) {
+            Log.d(
+                "HttpException @ addArtIfImagesAreFound, removing id $objectID",
+                e.message.toString()
+            )
             _foundIDs.value?.remove(objectID)
-        }
-        catch (e: Exception) {
+        } catch (e: Exception) {
             Log.d("Exception @ addArtIfImagesAreFound", e.message.toString())
         }
         return false

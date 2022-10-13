@@ -91,11 +91,13 @@ class ArActivity : AppCompatActivity(), SensorEventListener {
         val arLayout = LinearLayout(this)
         arLayout.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.MATCH_PARENT)
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
         val arImage = ImageView(this)
         arImage.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT)
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
         arImage.adjustViewBounds = true
         arImage.maxHeight = MAX_IMAGE_HEIGHT
         arImage.maxWidth = MAX_IMAGE_WIDTH
@@ -105,7 +107,7 @@ class ArActivity : AppCompatActivity(), SensorEventListener {
         ViewRenderable.builder()
             .setView(this, arLayout)
             .build()
-            .thenAccept{viewRenderable = it}
+            .thenAccept { viewRenderable = it }
 
         arFrag.setOnTapArPlaneListener { hitResult: HitResult?, _, _ ->
             viewRenderable ?: return@setOnTapArPlaneListener

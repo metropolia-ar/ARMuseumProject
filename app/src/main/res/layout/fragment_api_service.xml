@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="apiServiceViewModel"
-            type="com.marsu.armuseumproject.viewmodels.ApiServiceViewModel"/>
+            type="com.marsu.armuseumproject.viewmodels.ApiServiceViewModel" />
     </data>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/api_search_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/alice_blue"
+        android:background="?colorOnBackground"
         tools:context=".activities.MainActivity">
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -32,7 +29,6 @@
             app:layout_constraintTop_toBottomOf="@+id/result_amount"
             tools:listitem="@layout/art_list_item" />
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/search_input_container"
             android:layout_width="match_parent"
@@ -44,7 +40,6 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline2"
@@ -62,7 +57,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/filter_text"
                 app:layout_constraintTop_toTopOf="@+id/search_input_field_container"
                 app:srcCompat="@drawable/ic_baseline_filter_alt_24"
-                app:tint="@color/sapphire_blue_dark" />
+                app:tint="?colorAccent" />
 
             <TextView
                 android:id="@+id/filter_text"
@@ -70,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:text="@string/filter"
-                android:textColor="@color/sapphire_blue_dark"
+                android:textColor="?colorAccent"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/open_department_settings"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -98,6 +93,8 @@
                     android:hint="@string/search_arts"
                     android:padding="10dp"
                     android:singleLine="true"
+                    android:textColorHint="@color/sapphire_blue_dark"
+                    android:textColor="@color/sapphire_blue_dark"
                     android:text="@={apiServiceViewModel.searchInput}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +112,6 @@
                     app:srcCompat="@drawable/ic_baseline_search_32"
                     app:tint="@color/sapphire_blue_dark"
                     tools:ignore="SpeakableTextPresentCheck" />
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -154,8 +150,8 @@
                     app:layout_constraintTop_toTopOf="@+id/department_text"
                     app:srcCompat="@drawable/ic_baseline_close_24"
                     tools:ignore="TouchTargetSizeCheck" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -164,7 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@{apiServiceViewModel.resultText}"
-            android:textColor="@color/sapphire_blue_dark"
+            android:textColor="?colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_input_container" />
@@ -182,6 +178,5 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
 

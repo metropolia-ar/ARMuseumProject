@@ -1,23 +1,15 @@
 package com.marsu.armuseumproject.service
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Log
 import androidx.core.net.toUri
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.gorisse.thomas.sceneform.util.toByteArray
 import com.marsu.armuseumproject.MyApp
 import com.marsu.armuseumproject.database.ArtDB
 import com.marsu.armuseumproject.database.Artwork
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import org.apache.commons.io.IOUtils
-import retrofit2.http.Url
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -88,7 +80,7 @@ object InternalStorageService {
      */
     private fun saveFileToInternalStorage(url: URL): String {
 
-        var id : Int? = UUID.randomUUID().hashCode() * -1
+        var id: Int? = UUID.randomUUID().hashCode() * -1
         var newDir = "$dir/$id.png"
 
         var inputStream: InputStream? = null
@@ -106,7 +98,7 @@ object InternalStorageService {
                 val bmp = inputStream.readBytes()
                 fileOutputStream.write(bmp)
             }
-        }  catch (e: Exception) {
+        } catch (e: Exception) {
             Log.e("IMG_CREATE", "Failed to copy image", e)
             inputStream?.close()
             fileOutputStream?.close()
