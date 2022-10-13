@@ -23,7 +23,7 @@ class ApiServiceViewModel(val context: Context) : ViewModel() {
 
     private val initialBatchSize = 15
     private val service = APIService.service
-    val searchInput = MutableLiveData("cat")
+    val searchInput = MutableLiveData("")
 
     private val _departmentText = MutableLiveData("")
     val departmentText: LiveData<String>

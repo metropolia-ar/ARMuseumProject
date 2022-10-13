@@ -14,7 +14,7 @@
         android:id="@+id/api_search_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/alice_blue"
+        android:background="?colorOnBackground"
         tools:context=".activities.MainActivity">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -57,7 +57,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/filter_text"
                 app:layout_constraintTop_toTopOf="@+id/search_input_field_container"
                 app:srcCompat="@drawable/ic_baseline_filter_alt_24"
-                app:tint="@color/sapphire_blue_dark" />
+                app:tint="?colorAccent" />
 
             <TextView
                 android:id="@+id/filter_text"
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:text="@string/filter"
-                android:textColor="@color/sapphire_blue_dark"
+                android:textColor="?colorAccent"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/open_department_settings"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -93,6 +93,8 @@
                     android:hint="@string/search_arts"
                     android:padding="10dp"
                     android:singleLine="true"
+                    android:textColorHint="@color/sapphire_blue_dark"
+                    android:textColor="@color/sapphire_blue_dark"
                     android:text="@={apiServiceViewModel.searchInput}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -158,7 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@{apiServiceViewModel.resultText}"
-            android:textColor="@color/sapphire_blue_dark"
+            android:textColor="?colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_input_container" />
