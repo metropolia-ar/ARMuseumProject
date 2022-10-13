@@ -8,54 +8,34 @@
         android:layout_height="match_parent"
         tools:context=".fragments.HomeFragment">
 
-<!--        <Button
-            android:id="@+id/ar_selection_navigation"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_margin="20dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/ar_selection"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/welcome"
+            android:textColor="#D9000000"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/open_api_service"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|center_horizontal"
-            android:layout_margin="20dp"
-            android:layout_marginBottom="80dp"
-            android:text="@string/open_api_service"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/ar_selection_navigation"
-            app:layout_constraintHorizontal_bias="0.458"
-            app:layout_constraintStart_toEndOf="@+id/open_SFG" />
-
-        <Button
-            android:id="@+id/open_SFG"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|center_horizontal"
-            android:layout_margin="20dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/open_selectFromGallery"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />-->
         <TextView
             android:id="@+id/home_intro"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
             android:text="@string/home_intro"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#D9000000"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/welcome" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/homeRecycler"
@@ -65,9 +45,10 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/home_intro"
-            app:layout_constraintVertical_bias="0.100000024"
+            app:layout_constraintVertical_bias="0.19999999"
             tools:itemCount="5"
             tools:listitem="@layout/art_list_item" />
 

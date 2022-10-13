@@ -50,7 +50,8 @@
     <string name="online_artwork">Museum</string>
     <string name="chosen_artwork">Chosen artwork:</string>
     <string name="none">None</string>
-    <string name="home_intro">Try out how paintings would look like on your very own wall.</string>
+    <string name="home_intro">Most recently viewed artwork:</string>
+    <string name="welcome">Welcome!</string>
     <string name="delete_current">Delete current artwork</string>
     <string name="phone_rotation_warning">Please hold your phone upright!</string>
 </resources>
