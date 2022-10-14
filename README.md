@@ -29,9 +29,9 @@ The application is under the MIT License.
 ## Views
 
 <p>
-  <img src="images/home_tab.png" height="400">
-  <img src="images/add_tab.png" height="400">
-  <img src="images/museum_tab.png" height="400">
-  <img src="images/art_info_tab.png" height="400">
-   <img src="images/ar_tab.png" height="400">
+  <img src="images/home_tab.png" height="300">
+  <img src="images/add_tab.png" height="300">
+  <img src="images/museum_tab.png" height="300">
+  <img src="images/art_info_tab.png" height="300">
+   <img src="images/ar_tab.png" height="300">
 </p>
