@@ -1,6 +1,14 @@
 # ARMuseum
 Try out how paintings would look like on your very own wall utilizing Internal Storage, ARCore, a gravity sensor and paintings from [The Metropolitan Museum of Art Collection API](https://metmuseum.github.io/).
 
+<p>
+  <img src="images/home_tab.png" height="300">
+  <img src="images/add_tab.png" height="300">
+  <img src="images/museum_tab.png" height="300">
+  <img src="images/art_info_tab.png" height="300">
+   <img src="images/ar_tab.png" height="300">
+</p>
+
 ## Features
 ARMuseum does not require any registration in order to fully experience the application.
 -	See the most recently browsed images in the Home tab
@@ -25,13 +33,3 @@ The application is under the MIT License.
 - [Oskari Arponen](https://github.com/AOskari)
 - [Jani Salo](https://github.com/Janiksa)
 - [Sirja Kosonen](https://github.com/sirjak)
-
-## Views
-
-<p>
-  <img src="images/home_tab.png" height="300">
-  <img src="images/add_tab.png" height="300">
-  <img src="images/museum_tab.png" height="300">
-  <img src="images/art_info_tab.png" height="300">
-   <img src="images/ar_tab.png" height="300">
-</p>
