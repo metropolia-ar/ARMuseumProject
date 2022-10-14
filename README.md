@@ -25,3 +25,13 @@ The application is under the MIT License.
 - [Oskari Arponen](https://github.com/AOskari)
 - [Jani Salo](https://github.com/Janiksa)
 - [Sirja Kosonen](https://github.com/sirjak)
+
+## Views
+
+<p>
+  <img src="images/home_tab.png" height="400">
+  <img src="images/add_tab.png" height="400">
+  <img src="images/museum_tab.png" height="400">
+  <img src="images/art_info_tab.png" height="400">
+   <img src="images/ar_tab.png" height="400">
+</p>
