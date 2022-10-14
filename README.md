@@ -1,7 +1,5 @@
 # ARMuseum
-Try out how paintings would look like on your very own wall ARMuseum.
-
-The application utilizes [The Metropolitan Museum of Art Collection API](https://metmuseum.github.io/).
+Try out how paintings would look like on your very own wall utilizing Internal Storage, ARCore, a gravity sensor and paintings from [The Metropolitan Museum of Art Collection API](https://metmuseum.github.io/).
 
 ## Features
 ARMuseum does not require any registration in order to fully experience the application.
